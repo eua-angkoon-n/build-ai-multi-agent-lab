@@ -41,3 +41,23 @@ Brand Strategist เสนอให้ headline เปลี่ยนจาก "
 - **Interests**: เพิ่มคำอธิบาย 1 บรรทัดต่อรายการ (เดิมมีแค่ label ลอยๆ) ตาม D3
 
 ไม่ได้แก้ Bio, Audience, Contact, Tone, Not-to-show-publicly — เนื้อหาส่วนนี้ยังตรงกับ decisions ข้างต้น (Contact ฝั่ง UI จะ implement ตาม D2 ตอน Lab 04 โดยไม่ต้องแก้ PROFILE.md เพิ่ม)
+
+## Lab 03 — Issues created via GitHub MCP
+
+| Issue # | Title | มาจาก Decision |
+|---|---|---|
+| [#12](https://github.com/eua-angkoon-n/build-ai-multi-agent-lab/issues/12) | [D1] Align Home hero headline/tagline with PROFILE.md | D1 |
+| [#13](https://github.com/eua-angkoon-n/build-ai-multi-agent-lab/issues/13) | [D2] Contact page: mailto + GitHub link only, no server-side form (v1) | D2 |
+| [#14](https://github.com/eua-angkoon-n/build-ai-multi-agent-lab/issues/14) | [D3/D4] Build 4-page IA with expanded Interests content | D3, D4 |
+| [#15](https://github.com/eua-angkoon-n/build-ai-multi-agent-lab/issues/15) | [D5] Decide & scope Guestbook (moderation/rate-limit) before implementation | D5 |
+| [#16](https://github.com/eua-angkoon-n/build-ai-multi-agent-lab/issues/16) | [D7] Confirm employer name usage before Lab 04 ships public copy | D7 |
+
+ทั้ง 5 อันสร้างผ่าน GitHub MCP (`mcp__github__issue_write`) ทั้งหมด — ไม่ได้ใช้ `gh` สร้างอันไหนเลย (`gh` ใช้แค่เปรียบเทียบด้านล่าง)
+
+## Lab 03 — MCP vs gh
+
+- **ความเร็ว**: MCP เร็วกว่าในเซสชันเดียวกัน — สร้าง อ่านผล อัปเดต state (comment/close) ต่อเนื่องได้โดยไม่ต้องสลับหน้าต่าง/authenticate ใหม่ ส่วน `gh` ต้องเปิด terminal แยกและพิมพ์คำสั่งเอง แต่เร็วกว่าถ้าทำแค่ 1 คำสั่งเดียวแบบไม่ต้องผ่าน AI
+- **สิทธิ์ (permissions)**: MCP ใช้ fine-grained PAT ที่ผูกกับ scope เฉพาะที่ตั้งไว้ (ตอนแรกไม่มี Issues: Read/write ทำให้ 403 จนกว่าจะแก้ — ดู L7 ที่ปิดแล้ว) ส่วน `gh auth login` ใช้ token คนละตัว (`scope: repo` แบบกว้างกว่า) ที่ auth แยกจาก MCP โดยสิ้นเชิง — สอง path นี้ debug แยกกันได้เมื่อฝั่งใดฝั่งหนึ่งพัง
+- **Audit trail**: การเรียกผ่าน MCP ไม่ต่างจาก `gh` ในผลลัพธ์บน GitHub (commit/actor เดียวกันคือบัญชี `eua-angkoon-n`) — แต่ MCP ทำให้ Claude เป็นคน "ตัดสินใจ" เนื้อหา title/body/label เองในเซสชันเดียว ในขณะที่ `gh` บังคับให้มนุษย์ copy-paste คำสั่งเอง จึงมี checkpoint ให้ตรวจสอบก่อน publish อีกชั้นหนึ่งตามธรรมชาติ
+- **ข้อผิดพลาดที่เจอ**: รอบแรก MCP `issue_write`/`add_issue_comment` โดน `403 Resource not accessible by personal access token` เพราะ PAT scope ไม่พอ (บันทึกไว้เป็น L7 ใน `docs/OPEN_LOOPS.md`) ต้องใช้ `gh issue close`/`gh issue comment` fallback ชั่วคราวสำหรับ issue #1–#2 ก่อนจะแก้ PAT scope ให้ MCP ใช้งานได้เต็มที่ในรอบนี้ (ปิด/comment issue #3 ผ่าน MCP สำเร็จ)
+- **เมื่อไหร่ใช้อะไร**: ใช้ **MCP** เมื่อให้ Claude อ่าน `docs/DECISIONS.md` แล้วร่าง+สร้าง issue จากบริบทเดิมทันทีในเซสชันเดียว (งานที่ต้องแปลงเอกสารเป็น structured content) · ใช้ **`gh`** เมื่อมนุษย์อยากพิมพ์/ตรวจเองก่อน publish, ทำงาน scripted/CI, หรือกรณี MCP token ยังไม่พร้อม (fallback เสมอ)
