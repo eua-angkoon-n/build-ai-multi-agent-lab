@@ -3,15 +3,16 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 12:43 +07:00
-Updated by: Claude
+Last updated: 2026-09-25 13:56 +07:00
+Updated by: OpenCode
 
 ## Current goal
 
-- **Lab 04 (Frontend) เสร็จ — PR #17 เปิดแล้ว รอ Lab 05 (Backend/OpenCode)** — 4 หน้า + Guestbook link สะท้อน `docs/PROFILE.md`/`docs/DECISIONS.md` (D1–D4), `docs/fe-be-contract-check.md` เขียนโดย OpenCode ผ่าน cross-harness call, handoff อยู่ที่ `docs/handoffs/04-claude-to-opencode.md`
+- **Lab 05 (Backend) เสร็จฝั่ง backend — รอผู้เรียน review diff แล้วเปิด PR เอง** — `src/lib/db.ts` + `src/pages/api/*` implement จริงแล้ว (`npm run test:labs` เขียว 2/2, `npm test` เขียว 3/3) · PR body ร่างไว้ที่ `docs/lab05-pr-body.md` · งาน UI ที่เหลือ (guestbook.astro XSS/POST error) แยกเป็น L12 owner Claude/frontend
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
 
+- **Lab 05 (Backend) เสร็จฝั่ง backend:** implement `insertContact`/`insertGuestbook`/`listGuestbook` ใน `src/lib/db.ts` (prepared statements, trim/length/email validation ผ่าน `ValidationError` ที่ message ปลอดภัย) + เชื่อม `src/pages/api/guestbook.ts` และ `src/pages/api/contact.ts` กับ response contract 201/400/500 (error ภายในตอบ `internal error` แบบ generic ไม่ leak stack/SQL) · `npm run test:labs` เขียว 2/2, `npm test` เขียว 3/3 · **ไม่ได้แตะ UI ใด ๆ** — ช่องโหว่ `innerHTML` stored XSS + POST error ที่กลืนเงียบใน `guestbook.astro` เป็น ownership ของ Claude/frontend แยกเป็น L12 (P1 ก่อน ship เพราะ XSS live ทันทีที่ backend persist) · ยังไม่ commit/push — รอผู้เรียน review diff ตามที่สั่ง · ร่าง PR body ไว้ที่ `docs/lab05-pr-body.md`
 - **Lab 04 (Frontend) เสร็จ:** สร้าง branch `lab-04-frontend` · แก้ 4 findings จากการตรวจก่อนเริ่มงาน — (1) `BaseLayout.astro` default `description` หลุดคำว่า "multi-agent course" เข้า `<meta>` ของทุกหน้ายกเว้น Home เพราะ `tests/public-site.test.ts` strip frontmatter ก่อนสแกนเลยจับไม่เจอ (แก้เป็น course-free + ให้ทุกหน้าใส่ `description` เอง), (2) `contact.astro` ยังมีฟอร์ม POST `/api/contact` ขัด D2 (แก้เป็น mailto+GitHub เท่านั้น, เพิ่ม field `contact` ใน `profile.ts`), (3) palette เดิมเป็นโทนมืด navy/blue ขัดกับ Tone ใน PROFILE ("มินิมอล, โทนเอิร์ทอ่อนๆ") (แก้เป็น earth-tone, ตรวจ contrast ผ่าน WCAG AA), (4) About/Interests มีแค่ placeholder filler (แก้เป็นเนื้อหาอิง brainstorm ใน PROFILE โดยไม่เติมข้อเท็จจริงใหม่) · `npm test`/`npm run build` เขียวทั้งคู่ · เรียก `opencode run` ครั้งเดียวให้เขียน `docs/fe-be-contract-check.md` ตรวจสัญญา Contact/Guestbook ↔ API stubs (พบ D5/guestbook-scope ยังไม่ปิดอย่างเป็นทางการ + 2 ช่องโหว่เล็ก ส่งต่อ Lab 05) · commit `5fd5708`, push, เปิด PR #17 ใน repo ผู้เรียนเอง (`eua-angkoon-n/build-ai-multi-agent-lab`) อ้าง issue #5
 
 - **L8 ปิด:** เจ้าของโปรไฟล์ (Tae) ยืนยันเอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้ → อัปเดต D7 ใน `docs/DECISIONS.md` เป็น "ยืนยันแล้ว" + comment ปิด issue #16 ผ่าน MCP
@@ -51,14 +52,21 @@ Updated by: Claude
 
 ## Next actions
 
-1. (OpenCode · backend) เริ่ม **Lab 05 (Backend)** — implement guestbook API ตาม `docs/DECISIONS.md` + `docs/fe-be-contract-check.md` + ทำให้ `npm run test:labs` เขียว — ดู `docs/handoffs/04-claude-to-opencode.md`
-2. (human · ทางเลือก) รันคำสั่ง `gh issue create` ที่ Claude ให้ไว้ เพื่อประสบการณ์เปรียบเทียบ MCP vs gh ให้ครบ (ไม่บังคับ — เกณฑ์ผ่าน Lab 03 ครบแล้วโดยไม่ต้องทำข้อนี้)
-3. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
-4. (human · ทางเลือก) รีวิว PR #17 บน GitHub แล้ว merge เมื่อพร้อม (Lab 04 README ไม่ได้บังคับ merge ก่อนเริ่ม Lab 05)
+1. (human) review diff งาน Lab 05 backend (`src/lib/db.ts`, `src/pages/api/{guestbook,contact}.ts`, `docs/lab05-pr-body.md`, hot state 2 ไฟล์) แล้ว commit + เปิด PR เองโดยใช้ `docs/lab05-pr-body.md` — OpenCode หยุดรอตามที่สั่ง ไม่แตะ git
+2. (Claude · frontend) แก้ L12 — `src/pages/guestbook.astro`: แสดง error เมื่อ POST ไม่ผ่าน + เปลี่ยน `innerHTML` เป็น `textContent`/DOM API (P1 ก่อน ship — stored XSS live แล้วหลัง backend persist)
+3. (human + facilitator) ปิด D5 (issue #15) ก่อน ship — backend พร้อมแล้วแต่ยังไม่มี moderation/rate-limit ตามเงื่อนไข D5 (ดู L10)
+4. (OpenCode + human) ตัดสินใจชะตากรรม `/api/contact` orphan endpoint (L11) ก่อน deploy
+5. (human · ทางเลือก) รันคำสั่ง `gh issue create` ที่ Claude ให้ไว้ เพื่อประสบการณ์เปรียบเทียบ MCP vs gh ให้ครบ (ไม่บังคับ — เกณฑ์ผ่าน Lab 03 ครบแล้วโดยไม่ต้องทำข้อนี้)
+6. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
+7. (human · ทางเลือก) รีวิว PR #17 บน GitHub แล้ว merge เมื่อพร้อม (Lab 04 README ไม่ได้บังคับ merge ก่อนเริ่ม Lab 05)
 
 ## Files changed in latest session
 
-- `src/layouts/BaseLayout.astro`, `src/lib/profile.ts`, `src/pages/{about,contact,guestbook,interests}.astro` — Lab 04 UI ตาม PROFILE/DECISIONS (ดู Done ด้านบน)
+- `src/lib/db.ts` — implement persistence จริง (Lab 05 backend)
+- `src/pages/api/guestbook.ts`, `src/pages/api/contact.ts` — เชื่อม db จริง + response contract ปลอดภัย
+- `docs/lab05-pr-body.md` (ใหม่) — ร่าง PR body ให้ผู้เรียนใช้เปิด PR เอง
+- `docs/STATUS.md`, `docs/OPEN_LOOPS.md` — hot state รอบ OpenCode (ปิด L9 ส่วน backend, เปิด L12 ให้ Claude/frontend)
+- (รอบก่อน) `src/layouts/BaseLayout.astro`, `src/lib/profile.ts`, `src/pages/{about,contact,guestbook,interests}.astro` — Lab 04 UI ตาม PROFILE/DECISIONS (ดู Done ด้านบน)
 - `docs/fe-be-contract-check.md` (ใหม่) — เขียนโดย OpenCode ผ่าน cross-harness call
 - `docs/handoffs/04-claude-to-opencode.md` (ใหม่) — ส่งต่อ Lab 05
 - GitHub: commit `5fd5708` push ขึ้น branch `lab-04-frontend`, เปิด PR #17
@@ -78,5 +86,5 @@ Updated by: Claude
 - Proposed vs Approved: brainstorm อยู่ใน `DEBATE.md` — สิ่งที่ปิดแล้วอยู่ใน `DECISIONS.md`
 - **Permission classifier vs. แชท consent เป็นคนละชั้น:** ผู้เรียนบอก "ทำส่วนต่อไปทั้งหมดให้เสร็จ" ในแชทแล้ว แต่ Claude Code ยังมี auto-mode permission classifier แยกที่บล็อก `node scripts/create-course-issues.mjs` เองโดยอัตโนมัติ (มองว่า sensitive เพราะเขียนขึ้น GitHub จริง) — การ authorize ในแชทไม่ผ่านชั้นนี้ ต้องให้ผู้เรียนรันคำสั่งเองในเทอร์มินัล หรือเพิ่ม permission rule ให้ Claude Code ก่อน
 - Writer รอบนี้ = **Claude** (สลับจาก OpenCode หลัง commit `9cdfe82`) · handoff เดิมอยู่ที่ `docs/handoffs/00-opencode-to-claude.md`
-- **Writer รอบถัดไป = OpenCode** (สลับหลัง commit `5fd5708` + PR #17) · handoff อยู่ที่ `docs/handoffs/04-claude-to-opencode.md` — Claude commit ก่อนสลับ harness ตามกฎ
+- **Writer รอบนี้ = OpenCode** (รับไม้ตาม handoff `docs/handoffs/04-claude-to-opencode.md`) · **Writer รอบถัดไป = Claude** (สลับหลังผู้เรียน review + commit งาน Lab 05 backend — OpenCode ยังไม่ commit ตามที่ผู้เรียนสั่ง) · งาน UI ที่ค้าง (L12) เป็นของ Claude/frontend อยู่แล้ว
 - **แก้ timestamp:** entry ก่อนหน้า (L8) เขียน "Last updated: 13:20" แต่ `git log` ยืนยันว่า commit จริงของรอบนั้น (`c4df6e9`) เกิดเวลา 11:56 — ตัวเลข 13:20 เดิมคลาดเคลื่อน · เวลาปัจจุบันของไฟล์นี้ (12:43) อ้างอิงจาก commit จริงของ PR #17 fixup (`git log`) แทน
