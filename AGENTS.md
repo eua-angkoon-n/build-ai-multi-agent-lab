@@ -93,16 +93,35 @@ harness = ความสามารถถาวรที่ Claude Code / Open
 - MCP = งานผลิต — **ไม่ใช่**ท่อระหว่างสอง CLI  
 - Swarm หยุดเมื่อ done **หรือ** ครบ **20 turns**
 
+## โครงสร้างโปรเจกต์ (merge จาก `/init`)
+
+| Path | อะไร |
+|---|---|
+| `src/pages/*.astro` | หน้าเว็บ (index · about · contact · guestbook · interests) — **ของ Claude `frontend`** |
+| `src/pages/api/*.ts` | API endpoints (contact · guestbook · interests) — **ของ OpenCode `backend`** |
+| `src/layouts/BaseLayout.astro` | layout กลางของทุกหน้า |
+| `src/lib/db.ts` | SQLite (`better-sqlite3`) — ที่เก็บ `DATA_DIR`/`site.sqlite` · guestbook + contact |
+| `src/lib/profile.ts` | อ่าน `docs/PROFILE.md` (Lab 01) · มี FALLBACK ถ้าไฟล์หาย |
+| `tests/` | vitest unit (`smoke` · `public-site`) + `tests/labs/` |
+| `playwright/` | E2E (`smoke.spec.ts`) |
+| `scripts/` | `setup-windows.ps1` · `preflight.ps1` · `create-course-issues.mjs` |
+| `docs/` | ชั้น Context/State (PROFILE · STATUS · OPEN_LOOPS · handoffs) |
+| `labs/` | คู่มือ + prompts ของแต่ละ Lab |
+| `opencode.json` · `.opencode/` | OpenCode config (MCP) + agent `backend` + skills |
+| `.claude/` | Claude settings · agents `frontend` · skills |
+
 ## คำสั่งหลัก
 
 ```powershell
 npm install
-npm run dev
-npm test
-npm run test:labs
-npm run build
-npm start
-node scripts/create-course-issues.mjs
+npm run dev        # astro dev
+npm run build      # astro build
+npm start          # node ./dist/server/entry.mjs
+npm run preview    # astro preview
+npm test           # vitest run
+npm run test:labs  # vitest run --config vitest.labs.config.ts
+npm run test:e2e   # playwright test
+npm run create-issues   # node scripts/create-course-issues.mjs
 ```
 
 ## ห้าม
