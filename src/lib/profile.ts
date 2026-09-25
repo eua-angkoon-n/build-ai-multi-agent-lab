@@ -41,6 +41,9 @@ export function loadProfile(): Profile {
   if (!existsSync(path)) return FALLBACK;
   const raw = readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
   const get = (label: string) => {
+    // `(?![\s\S])` matches only true end-of-string; a bare `$` here would also
+    // match end-of-line under the `m` flag and truncate every section to its
+    // first line (caught in PR #17 review — verified against docs/PROFILE.md).
     const m = raw.match(new RegExp(`^##\\s*${label}\\s*\\n([\\s\\S]*?)(?=^##\\s|(?![\\s\\S]))`, 'm'));
     return (m?.[1] || '').trim();
   };
@@ -51,6 +54,10 @@ export function loadProfile(): Profile {
   const contactRaw = get('Contact');
   const emailMatch = contactRaw.match(/email:\s*(.+)/i);
   const githubMatch = contactRaw.match(/github:\s*(.+)/i);
+  const normalizeGithub = (value: string) =>
+    value && !/^https?:\/\//i.test(value)
+      ? `https://github.com/${value.replace(/^@/, '')}`
+      : value;
   return {
     name: get('Name') || FALLBACK.name,
     headline: get('Headline') || FALLBACK.headline,
@@ -59,7 +66,7 @@ export function loadProfile(): Profile {
     interests: interests.length ? interests : FALLBACK.interests,
     contact: {
       email: (emailMatch?.[1] || FALLBACK.contact.email).trim(),
-      github: (githubMatch?.[1] || FALLBACK.contact.github).trim(),
+      github: normalizeGithub((githubMatch?.[1] || FALLBACK.contact.github).trim()),
     },
   };
 }
