@@ -3,14 +3,16 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 09:15 +07:00
+Last updated: 2026-09-25 09:40 +07:00
 Updated by: Claude
 
 ## Current goal
 
-- Lab 00 (project init) กำลังทำให้เครื่องนี้ตรงกับ checklist ของ `labs/lab-00-project-init/README.md` — เครื่องนี้เป็น fresh clone เดี่ยว (commit เดียว) ที่ยังไม่เคยผ่าน Lab 00 จริงมาก่อน
+- Lab 00 (Claude side) เสร็จและ commit แล้ว (`7ff2df0`) · เหลือ OpenCode `/init`+resume test ด้วยมือ (L2) ก่อนถือว่า Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่ง · หลังจากนั้นพร้อมต่อ Lab 02 (Debate) เพราะ Lab 01 (PROFILE.md) มีอยู่แล้ว
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
+
+- **Commit `7ff2df0`** (ยังไม่ push): `.claude/settings.json`, `opencode.json`, `docs/STATUS.md`, `docs/OPEN_LOOPS.md`, `scripts/preflight.ps1` (encoding fix), `docs/PROFILE.md` (Lab 01 จริง), `.claude/agent-memory/frontend/*` (หลักฐาน B7)
 
 - ตรวจเครื่องมือ: พบ `opencode --version` เป็น **v1 (1.18.32, package `opencode-ai`)** ทั้งที่ควรเป็น v2 — ถอน `opencode-ai` แล้วติดตั้ง `@opencode/cli@2.0.16` ใหม่ (ต้อง `--allow-scripts` เพราะ npm ใหม่บล็อก postinstall โดย default) → ตอนนี้ `opencode --version` = `2.0.16` ✔
 - `gh auth login` — ผู้เรียนล็อกอินเองสำเร็จ (`eua-angkoon-n`) · ตั้ง `gh repo set-default eua-angkoon-n/build-ai-multi-agent-lab` แล้ว
@@ -23,7 +25,7 @@ Updated by: Claude
 
 ## In progress
 
-- รีวิว diff ที่ stage ไว้ (ยังไม่ commit ตามที่ผู้เรียนขอ) แล้ว commit เอง
+- รอผู้เรียนทำ OpenCode `/init` + resume-session test ด้วยมือ (L2)
 
 ## Blocked
 
@@ -31,10 +33,11 @@ Updated by: Claude
 
 ## Next actions
 
-1. รีวิว `git status`/diff ของ `.claude/settings.json`, `opencode.json`, `docs/STATUS.md`, `docs/OPEN_LOOPS.md` ที่ stage ไว้ แล้ว `git commit` เอง (Claude ไม่ commit ให้ตามคำขอ)
-2. ทำ OpenCode ส่วน C1 (`/init` merge เข้า `AGENTS.md` ผ่าน TUI จริง) และ C5 (resume-session memory test) ด้วยมือ — ต้องเปิด `opencode` TUI ทำเอง ไม่มีหลักฐานยืนยันว่าทำบนเครื่องนี้แล้ว (ดู Notes)
-3. ตัดสินใจว่าจะรัน `node scripts/create-course-issues.mjs` หรือยัง (สร้าง GitHub issues จริงบน repo — ยังไม่รันเพราะเป็น action ที่มองเห็นได้บน GitHub ต้องขอผู้เรียนก่อน)
-4. หลัง Lab 00 ครบ → ต่อ Lab 01 (Interview) — หมายเหตุ: `docs/PROFILE.md` มีเนื้อหาสัมภาษณ์จริงอยู่แล้วในเครื่องนี้ (ไม่ใช่ stub) แต่ **ยังไม่ได้ commit** เข้า git เลย ต้องรวม commit นี้ไปกับ Lab 00 หรือแยก commit ก็ได้ แล้วแต่ผู้เรียน
+1. เปิด `opencode` TUI จริง ทำ `/init` merge เข้า `AGENTS.md` (C1) และ resume-session memory test (C5) — ดู `labs/lab-00-project-init/README.md` ส่วน C1/C5
+2. ตัดสินใจว่าจะรัน `node scripts/create-course-issues.mjs` หรือยัง (สร้าง GitHub issues จริงบน repo — ต้องขอผู้เรียนก่อนรันเสมอ)
+3. (ทางเลือก) `git push` commit `7ff2df0` ขึ้น `origin/main` เมื่อพร้อม
+4. ยืนยัน GitHub MCP (`claude mcp list` / `opencode mcp list`) จาก shell ใหม่ที่โหลด `.env` แล้ว
+5. เมื่อ Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่ง → เริ่ม Lab 02 (Debate) จาก `docs/PROFILE.md` ที่มีอยู่แล้ว
 
 ## Files changed in latest session
 
