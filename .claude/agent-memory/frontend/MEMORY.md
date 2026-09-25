@@ -1,0 +1,1 @@
+- [Design tone](design_tone.md) — minimal + soft earth tones, modern 2025+ style, uncluttered UI (from docs/PROFILE.md)

@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
   Preflight checks for Build AI Multi-Agent Lab V4 (single-repo template).

@@ -1,18 +1,65 @@
 # PROFILE
 
 ## Name
-Your Name
+Tae
 
 ## Headline
-Builder · learner · multi-agent course
+Programmer ที่สนใจ AI agents
 
 ## Bio
-Replace this after Lab 01 interview.
+ทำงานเป็นโปรแกรมเมอร์อยู่ที่บริษัท จงสถิตย์ จำกัด ช่วงหลังเริ่มสนใจเครื่องมือ AI agents มากขึ้นเรื่อยๆ ไม่ใช่แค่ในฐานะของเล่นใหม่ แต่มองว่าเป็นเครื่องมือที่ช่วยงานจริงได้ถ้าเข้าใจและปรับให้เข้ากับหน้างาน
+
+ตอนนี้กำลังศึกษาว่าจะเอา AI agents มาปรับใช้กับงานที่ทำอยู่ยังไงให้เหมาะสม ทั้งในแง่ workflow และเครื่องมือ เน้นเรียนรู้จากการลงมือทำจริงมากกว่าทฤษฎีอย่างเดียว
 
 ## Audience
-Peers and hiring managers
+HR / ผู้จ้างงาน และลูกค้า
 
 ## Interests
-- AI agents
-- Web
-- Teaching
+- AI Agentic / AI Agents / Multi-Agent Systems
+- Web Development
+- Data Analysis
+
+## Contact
+- email: euaangkoon.n@gmail.com
+- github: https://github.com/eua-angkoon-n
+
+## Tone
+- สีหลัก / บรรยากาศ: มินิมอล, โทนเอิร์ทอ่อนๆ, ดีไซน์ทันสมัยสไตล์ 2025 ขึ้นไป, UI สบายตา ไม่รก
+- น้ำเสียง: เป็นกันเองกึ่งมืออาชีพ อ่านง่าย
+- ตัวอย่างอ้างอิง (แนวคร่าวๆ ไม่ต้องเหมือน — ใช้ตอน Lab 04): https://21st.dev/@ncdai/components/hero-01
+
+## Not to show publicly
+- รูปภาพตัวเอง
+- เบอร์โทร
+- ที่อยู่
+- เงินเดือน
+- เนื้อหาที่ไม่เกี่ยวข้องกับเว็บนี้ / ดีไซน์ที่ล้าสมัย
+
+## Brainstorm
+
+**Must**
+- Hero section — headline + value prop บรรทัดเดียว
+- About จาก Bio ที่มีอยู่
+- Interests แสดง 3 ด้าน (AI Agentic, Web Dev, Data Analysis)
+- Contact (email + github ที่ให้ไว้)
+- Layout responsive แบบมินิมอล/เอิร์ท ตามตัวอย่างอ้างอิง
+
+**Nice**
+- การ์ดโปรเจกต์/เคสที่เคยลองใช้ AI agents กับงาน (ไม่เอ่ยชื่อลูกค้า)
+- Guestbook (ตรงกับ Lab 05 ของคอร์สพอดี)
+- โน้ต/บล็อกสั้นๆ แชร์สิ่งที่เรียนรู้เรื่อง AI agents
+
+**Later**
+- Dark/Light mode ในโทนเอิร์ท
+- Newsletter/RSS
+
+**มุมเล่าเรื่อง About (3 แบบ)**
+- Practitioner learning in public — เล่าเป็นคนที่กำลังเรียนรู้เอา AI agents มาใช้กับงานจริง เปิดเผยการเดินทาง ไม่ต้องเก่งครบ
+- สะพานระหว่างงานเดิมกับ AI tooling — วางตัวเป็นคนเชื่อมโลกระบบเดิมของบริษัทกับความสามารถ AI ใหม่ๆ
+- Problem-first ไม่ใช่ tool-first — เล่าจากปัญหางานจริงที่เจอ แล้ว AI agent ช่วยแก้ยังไง แทนที่จะพูดถึงเครื่องมือลอยๆ
+
+**สิ่งที่ควรหลีกเลี่ยง**
+- ห้ามเอ่ยชื่อลูกค้า/ข้อมูลธุรกิจของ จงสถิตย์ ที่เป็นความลับ
+- ไม่ใส่รูป/เบอร์/ที่อยู่/เงินเดือน
+- อย่าเพิ่ง scope บวมเป็นบล็อก/CMS เต็มรูปแบบใน v1 — เอาแค่ profile + interests + contact ให้แน่นก่อน
+- อย่า claim ความเชี่ยวชาญที่ยังไปไม่ถึง — เล่าตามจริงว่ากำลังเรียนรู้
