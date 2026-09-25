@@ -6,9 +6,8 @@ test('home renders nav and heading', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 });
 
-test('contact page has form fields', async ({ page }) => {
+test('contact page has mailto and GitHub links', async ({ page }) => {
   await page.goto('/contact');
-  await expect(page.getByLabel('Name')).toBeVisible();
-  await expect(page.getByLabel('Email')).toBeVisible();
-  await expect(page.getByLabel('Message')).toBeVisible();
+  await expect(page.locator('a[href^="mailto:"]')).toBeVisible();
+  await expect(page.locator('a[href*="github.com"]')).toBeVisible();
 });

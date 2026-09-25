@@ -3,14 +3,16 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 13:20 +07:00
+Last updated: 2026-09-25 12:43 +07:00
 Updated by: Claude
 
 ## Current goal
 
-- **Lab 02 และ Lab 03 ปิดแล้ว ไม่มีบล็อกเกอร์เหลือ** — Lab 02: `docs/DEBATE.md` + `docs/DECISIONS.md` (D1–D8) · Lab 03: issue #12–#16 สร้างผ่าน MCP + `## Lab 03 — MCP vs gh` · **L8 ปิดแล้ว**: เจ้าของโปรไฟล์ยืนยันเอ่ยชื่อ "จงสถิตย์" ได้ (D7 อัปเดต, issue #16 ปิด) · พร้อมเริ่ม **Lab 04 (Frontend)** จาก issue #12–#14
+- **Lab 04 (Frontend) เสร็จ — PR #17 เปิดแล้ว รอ Lab 05 (Backend/OpenCode)** — 4 หน้า + Guestbook link สะท้อน `docs/PROFILE.md`/`docs/DECISIONS.md` (D1–D4), `docs/fe-be-contract-check.md` เขียนโดย OpenCode ผ่าน cross-harness call, handoff อยู่ที่ `docs/handoffs/04-claude-to-opencode.md`
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
+
+- **Lab 04 (Frontend) เสร็จ:** สร้าง branch `lab-04-frontend` · แก้ 4 findings จากการตรวจก่อนเริ่มงาน — (1) `BaseLayout.astro` default `description` หลุดคำว่า "multi-agent course" เข้า `<meta>` ของทุกหน้ายกเว้น Home เพราะ `tests/public-site.test.ts` strip frontmatter ก่อนสแกนเลยจับไม่เจอ (แก้เป็น course-free + ให้ทุกหน้าใส่ `description` เอง), (2) `contact.astro` ยังมีฟอร์ม POST `/api/contact` ขัด D2 (แก้เป็น mailto+GitHub เท่านั้น, เพิ่ม field `contact` ใน `profile.ts`), (3) palette เดิมเป็นโทนมืด navy/blue ขัดกับ Tone ใน PROFILE ("มินิมอล, โทนเอิร์ทอ่อนๆ") (แก้เป็น earth-tone, ตรวจ contrast ผ่าน WCAG AA), (4) About/Interests มีแค่ placeholder filler (แก้เป็นเนื้อหาอิง brainstorm ใน PROFILE โดยไม่เติมข้อเท็จจริงใหม่) · `npm test`/`npm run build` เขียวทั้งคู่ · เรียก `opencode run` ครั้งเดียวให้เขียน `docs/fe-be-contract-check.md` ตรวจสัญญา Contact/Guestbook ↔ API stubs (พบ D5/guestbook-scope ยังไม่ปิดอย่างเป็นทางการ + 2 ช่องโหว่เล็ก ส่งต่อ Lab 05) · commit `5fd5708`, push, เปิด PR #17 ใน repo ผู้เรียนเอง (`eua-angkoon-n/build-ai-multi-agent-lab`) อ้าง issue #5
 
 - **L8 ปิด:** เจ้าของโปรไฟล์ (Tae) ยืนยันเอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้ → อัปเดต D7 ใน `docs/DECISIONS.md` เป็น "ยืนยันแล้ว" + comment ปิด issue #16 ผ่าน MCP
 
@@ -49,18 +51,22 @@ Updated by: Claude
 
 ## Next actions
 
-1. (Claude · frontend) เริ่ม **Lab 04 (Frontend)** จาก issue #12–#14 — ดู `labs/lab-04-frontend/README.md`
+1. (OpenCode · backend) เริ่ม **Lab 05 (Backend)** — implement guestbook API ตาม `docs/DECISIONS.md` + `docs/fe-be-contract-check.md` + ทำให้ `npm run test:labs` เขียว — ดู `docs/handoffs/04-claude-to-opencode.md`
 2. (human · ทางเลือก) รันคำสั่ง `gh issue create` ที่ Claude ให้ไว้ เพื่อประสบการณ์เปรียบเทียบ MCP vs gh ให้ครบ (ไม่บังคับ — เกณฑ์ผ่าน Lab 03 ครบแล้วโดยไม่ต้องทำข้อนี้)
 3. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
+4. (human · ทางเลือก) รีวิว PR #17 บน GitHub แล้ว merge เมื่อพร้อม (Lab 04 README ไม่ได้บังคับ merge ก่อนเริ่ม Lab 05)
 
 ## Files changed in latest session
 
-- `docs/DEBATE.md` (ใหม่) — 3 มุม Brand Strategist / UX Critic / Devil's Advocate ผ่าน sub-agent แยกกัน
-- `docs/DECISIONS.md` — D1–D8 + Out of scope + เกณฑ์พร้อม Lab 04 + ตาราง issue #12–#16 + `## Lab 03 — MCP vs gh`
-- `docs/PROFILE.md` — แก้ headline (D1) + เพิ่มคำอธิบาย Interests (D3)
-- `.claude/settings.local.json` — เพิ่ม `permissions.allow` สำหรับ `docs/**` (แก้ auto-mode block ระหว่าง sub-agent เขียน DEBATE.md)
-- GitHub: issue #12–#16 สร้างใหม่ผ่าน MCP, ปิด issue #3 (Lab 02 tracking)
-- `docs/STATUS.md`, `docs/OPEN_LOOPS.md` — ปิด Lab 02 + Lab 03, เปิด L8 (ยืนยันชื่อนายจ้าง), writer รอบนี้ = Claude
+- `src/layouts/BaseLayout.astro`, `src/lib/profile.ts`, `src/pages/{about,contact,guestbook,interests}.astro` — Lab 04 UI ตาม PROFILE/DECISIONS (ดู Done ด้านบน)
+- `docs/fe-be-contract-check.md` (ใหม่) — เขียนโดย OpenCode ผ่าน cross-harness call
+- `docs/handoffs/04-claude-to-opencode.md` (ใหม่) — ส่งต่อ Lab 05
+- GitHub: commit `5fd5708` push ขึ้น branch `lab-04-frontend`, เปิด PR #17
+- (รอบก่อน) `docs/DEBATE.md` (ใหม่) — 3 มุม Brand Strategist / UX Critic / Devil's Advocate ผ่าน sub-agent แยกกัน
+- (รอบก่อน) `docs/DECISIONS.md` — D1–D8 + Out of scope + เกณฑ์พร้อม Lab 04 + ตาราง issue #12–#16 + `## Lab 03 — MCP vs gh`
+- (รอบก่อน) `docs/PROFILE.md` — แก้ headline (D1) + เพิ่มคำอธิบาย Interests (D3)
+- (รอบก่อน) `.claude/settings.local.json` — เพิ่ม `permissions.allow` สำหรับ `docs/**` (แก้ auto-mode block ระหว่าง sub-agent เขียน DEBATE.md)
+- (รอบก่อน) GitHub: issue #12–#16 สร้างใหม่ผ่าน MCP, ปิด issue #3 (Lab 02 tracking)
 - (รอบก่อน) `AGENTS.md` — merge จาก `/init` (โครงสร้างโปรเจกต์ + คำสั่ง npm ครบ)
 - (รอบก่อน) `docs/handoffs/00-opencode-to-claude.md` — handoff ส่งต่อ Claude ไป Lab 02
 - (รอบก่อน) `.claude/settings.json`, `opencode.json`, `.mcp.json`, `.claude/agent-memory/frontend/*`
@@ -72,3 +78,5 @@ Updated by: Claude
 - Proposed vs Approved: brainstorm อยู่ใน `DEBATE.md` — สิ่งที่ปิดแล้วอยู่ใน `DECISIONS.md`
 - **Permission classifier vs. แชท consent เป็นคนละชั้น:** ผู้เรียนบอก "ทำส่วนต่อไปทั้งหมดให้เสร็จ" ในแชทแล้ว แต่ Claude Code ยังมี auto-mode permission classifier แยกที่บล็อก `node scripts/create-course-issues.mjs` เองโดยอัตโนมัติ (มองว่า sensitive เพราะเขียนขึ้น GitHub จริง) — การ authorize ในแชทไม่ผ่านชั้นนี้ ต้องให้ผู้เรียนรันคำสั่งเองในเทอร์มินัล หรือเพิ่ม permission rule ให้ Claude Code ก่อน
 - Writer รอบนี้ = **Claude** (สลับจาก OpenCode หลัง commit `9cdfe82`) · handoff เดิมอยู่ที่ `docs/handoffs/00-opencode-to-claude.md`
+- **Writer รอบถัดไป = OpenCode** (สลับหลัง commit `5fd5708` + PR #17) · handoff อยู่ที่ `docs/handoffs/04-claude-to-opencode.md` — Claude commit ก่อนสลับ harness ตามกฎ
+- **แก้ timestamp:** entry ก่อนหน้า (L8) เขียน "Last updated: 13:20" แต่ `git log` ยืนยันว่า commit จริงของรอบนั้น (`c4df6e9`) เกิดเวลา 11:56 — ตัวเลข 13:20 เดิมคลาดเคลื่อน · เวลาปัจจุบันของไฟล์นี้ (12:43) อ้างอิงจาก commit จริงของ PR #17 fixup (`git log`) แทน

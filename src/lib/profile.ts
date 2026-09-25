@@ -11,6 +11,7 @@ export type Profile = {
   bio: string;
   audience: string;
   interests: string[];
+  contact: { email: string; github: string };
 };
 
 /**
@@ -24,6 +25,7 @@ const FALLBACK: Profile = {
   bio: 'This personal site is still being built — content is coming soon.',
   audience: 'Hiring managers / peers / community',
   interests: ['AI agents', 'Web', 'Teaching'],
+  contact: { email: '', github: '' },
 };
 
 function profilePath(): string {
@@ -39,18 +41,25 @@ export function loadProfile(): Profile {
   if (!existsSync(path)) return FALLBACK;
   const raw = readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
   const get = (label: string) => {
-    const m = raw.match(new RegExp(`^##\\s*${label}\\s*\\n([\\s\\S]*?)(?=^##\\s|$)`, 'm'));
+    const m = raw.match(new RegExp(`^##\\s*${label}\\s*\\n([\\s\\S]*?)(?=^##\\s|(?![\\s\\S]))`, 'm'));
     return (m?.[1] || '').trim();
   };
   const interests = get('Interests')
     .split('\n')
     .map((l) => l.replace(/^[-*]\s*/, '').trim())
     .filter(Boolean);
+  const contactRaw = get('Contact');
+  const emailMatch = contactRaw.match(/email:\s*(.+)/i);
+  const githubMatch = contactRaw.match(/github:\s*(.+)/i);
   return {
     name: get('Name') || FALLBACK.name,
     headline: get('Headline') || FALLBACK.headline,
     bio: get('Bio') || FALLBACK.bio,
     audience: get('Audience') || FALLBACK.audience,
     interests: interests.length ? interests : FALLBACK.interests,
+    contact: {
+      email: (emailMatch?.[1] || FALLBACK.contact.email).trim(),
+      github: (githubMatch?.[1] || FALLBACK.contact.github).trim(),
+    },
   };
 }
