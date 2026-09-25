@@ -3,15 +3,18 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 09:43 +07:00
-Updated by: OpenCode
+Last updated: 2026-09-25 10:05 +07:00
+Updated by: Claude
 
 ## Current goal
 
-- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว** (C1 `/init` merge + C5 resume-session test ปิดโดย OpenCode) · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
+- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว** (C1 `/init` merge + C5 resume-session test ปิดโดย OpenCode) · L4 (OpenCode MCP) ปิดแล้ว, L4 (Claude MCP) ค้าง 1 ขั้น interactive · L3 (course issues) ยังไม่ทำ (ติด permission classifier) · L5 push แล้ว · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
 
+- **L4 บางส่วน — ยืนยัน MCP จาก fresh shell ที่โหลด `.env` เข้า process env:** `opencode mcp list` → `github` ✔ connected, `playwright` ✔ connected (ปิด L4 ฝั่ง OpenCode) · `claude mcp list` → `github`/`playwright` (จาก `.mcp.json` ของ project) ขึ้น **"⏸ Pending approval (run `claude` to approve)"** — เป็น one-time interactive trust prompt ของ Claude Code เอง ต้องเปิด `claude` แบบ interactive แล้วกด approve ครั้งเดียว ไม่มีทางทำแบบ headless ได้ (ดู Notes)
+- **L3 — ยังไม่ได้ทำ:** `node scripts/create-course-issues.mjs` ถูก Claude Code auto-mode permission classifier **บล็อกอัตโนมัติ** (ถือเป็น action ที่ sensitive เพราะสร้าง GitHub issues จริง) แม้ผู้เรียนจะ authorize ในแชทแล้วก็ตาม — เป็นคนละชั้นกับการขอ consent ในแชท ต้องให้ผู้เรียนรันเองในเทอร์มินัลของตัวเอง หรือปรับ permission rule ให้ Claude Code แล้วให้ผมลองใหม่ (ดู Notes) — ยืนยันแล้วว่า `gh issue list` ยังว่างเปล่า ไม่มี issue ถูกสร้างขึ้นเลย
+- **L5 — push:** push commit `7ff2df0`, `da83261`, `9cdfe82` (และ commit ปิดงานรอบนี้) ขึ้น `origin/main` แล้ว
 - **L2 ปิด (OpenCode `/init` + memory test):** C1 merge `/init` เข้า `AGENTS.md` (+25/−6 — เพิ่มโครงสร้างโปรเจกต์ + คำสั่ง npm ครบ, กฎ Ownership/Native harness คงครบ ไม่แตะ `src/`) · C5 resume-session test ผ่านทั้ง 3 steps (resume จำได้ว่า guestbook = SQLite ตาม `DATA_DIR` · เซสชันใหม่ยังเคารพ `AGENTS.md` โดยไม่ต้อง recall ปากเปล่า) · ไม่ติด memory plugin เพิ่ม
 - **Commit `da83261`**: hot state รอบ Claude (แยก commit ก่อนตาม single-writer)
 
@@ -28,29 +31,30 @@ Updated by: OpenCode
 
 ## In progress
 
-- — (L2 ปิดแล้ว · รอผู้เรียนสลับไปทำ Lab 02 ฝั่ง Claude ตาม handoff)
+- L3 รอผู้เรียนรันเอง (permission classifier บล็อก Claude) · L4 ฝั่ง Claude รอผู้เรียนกด approve ใน `claude` TUI ครั้งเดียว
 
 ## Blocked
 
-- —
+- L3: `node scripts/create-course-issues.mjs` ถูกบล็อกโดย Claude Code permission classifier — ต้องให้ผู้เรียนรันเองหรือปรับ permission rule
+- L4 (ฝั่ง Claude เท่านั้น): ต้อง approve MCP servers แบบ interactive ใน `claude` TUI ครั้งเดียว (headless ทำไม่ได้)
 
 ## Next actions
 
-1. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05`
-2. (human) ตัดสินใจรัน `node scripts/create-course-issues.mjs` (L3) — สร้าง GitHub issues จริง ต้องขอผู้เรียนก่อนเสมอ
-3. (human) ยืนยัน GitHub MCP (`claude mcp list` / `opencode mcp list`) จาก shell ใหม่ที่โหลด `.env` แล้ว (L4)
-4. (human · ทางเลือก) `git push` commit `da83261` + commit รอบนี้ ขึ้น `origin/main` (L5)
+1. (human) รัน `node scripts/create-course-issues.mjs` เองในเทอร์มินัล (L3) — จะสร้าง GitHub issues 10 อันจาก `.github/course-issues/*.md` **ห้ามรันซ้ำสองครั้ง** (สคริปต์ไม่ idempotent จะสร้างซ้ำ)
+2. (human) เปิด `claude` (interactive TUI) ครั้งเดียวแล้วกด approve MCP servers `github`/`playwright` เมื่อถูกถาม (L4 ฝั่ง Claude)
+3. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05` เมื่อผู้เรียนพร้อม
 
 ## Files changed in latest session
 
-- `AGENTS.md` — merge จาก `/init` (โครงสร้างโปรเจกต์ + คำสั่ง npm ครบ)
-- `docs/handoffs/00-opencode-to-claude.md` — handoff ใหม่ส่งต่อ Claude ไป Lab 02
-- `docs/STATUS.md`, `docs/OPEN_LOOPS.md` — ปิด L2 (writer รอบนี้ = OpenCode)
-- (รอบก่อน) `docs/STATUS.md`, `docs/OPEN_LOOPS.md`, `.claude/settings.json`, `opencode.json`, `.mcp.json`, `.claude/agent-memory/frontend/*`
+- `docs/STATUS.md`, `docs/OPEN_LOOPS.md` — ปิด L4 (OpenCode ฝั่งเดียว), บันทึกว่า L3 ติด permission classifier, บันทึกผล push (writer รอบนี้ = Claude)
+- (รอบก่อน) `AGENTS.md` — merge จาก `/init` (โครงสร้างโปรเจกต์ + คำสั่ง npm ครบ)
+- (รอบก่อน) `docs/handoffs/00-opencode-to-claude.md` — handoff ส่งต่อ Claude ไป Lab 02
+- (รอบก่อน) `.claude/settings.json`, `opencode.json`, `.mcp.json`, `.claude/agent-memory/frontend/*`
 
 ## Notes
 
 - **สำคัญ — เหตุผลที่เขียนไฟล์นี้ใหม่ทั้งหมด:** เนื้อหาเดิมของ `docs/STATUS.md`/`docs/OPEN_LOOPS.md` (ก่อนวันนี้) เล่าว่า Lab 00 ทั้งฝั่ง Claude และ OpenCode เสร็จแล้ว รวมถึงอ้างถึง commit `e54962d` — แต่ `git log --all` ของเครื่องนี้มีแค่ commit เดียว (`aa2a52c Initial commit`) และไม่มี `e54962d` อยู่จริง ก่อนวันนี้เครื่องนี้ก็ไม่มี `node_modules`, `.claude/settings.json`, `opencode.json` เลย ข้อสรุป: ไฟล์ STATUS/OPEN_LOOPS เวอร์ชันก่อนหน้าถูกคัดลอกมาจากเครื่อง/เซสชันอื่นโดยไม่มีการ commit/push จริงรองรับ — **ให้ถือว่าเนื้อหาก่อนวันที่ 2026-09-25 เป็น unverified/stale จนกว่าจะพิสูจน์ซ้ำ** ข้อยกเว้นคือ `docs/PROFILE.md` ซึ่งตรวจสอบแล้วว่ามีเนื้อหาสัมภาษณ์จริง (ไม่ใช่ stub) อยู่ในเครื่องนี้จริง จึงเชื่อว่า Lab 01 (การสัมภาษณ์) เกิดขึ้นจริงแม้จะยังไม่ได้ commit
 - ประเด็น GitHub MCP `HTTP 400` และ root cause (env ต้องโหลดก่อนเปิด `claude`/`opencode`) ที่เคยบันทึกไว้ — ยังไม่ได้ตรวจซ้ำบนเครื่องนี้ในวันนี้ (session นี้เปิดก่อนจะมี `.mcp.json`) ควรรัน `claude mcp list` / `opencode mcp list` จาก shell ใหม่ที่โหลด `.env` แล้วเพื่อยืนยันอีกครั้ง
 - Proposed vs Approved: brainstorm อยู่ใน `DEBATE.md` — สิ่งที่ปิดแล้วอยู่ใน `DECISIONS.md`
-- Writer รอบนี้ = **OpenCode** (สลับจาก Claude หลัง commit `da83261`) · handoff อยู่ที่ `docs/handoffs/00-opencode-to-claude.md` — writer รอบถัดไปของ STATUS/OPEN_LOOPS = Claude
+- **Permission classifier vs. แชท consent เป็นคนละชั้น:** ผู้เรียนบอก "ทำส่วนต่อไปทั้งหมดให้เสร็จ" ในแชทแล้ว แต่ Claude Code ยังมี auto-mode permission classifier แยกที่บล็อก `node scripts/create-course-issues.mjs` เองโดยอัตโนมัติ (มองว่า sensitive เพราะเขียนขึ้น GitHub จริง) — การ authorize ในแชทไม่ผ่านชั้นนี้ ต้องให้ผู้เรียนรันคำสั่งเองในเทอร์มินัล หรือเพิ่ม permission rule ให้ Claude Code ก่อน
+- Writer รอบนี้ = **Claude** (สลับจาก OpenCode หลัง commit `9cdfe82`) · handoff เดิมอยู่ที่ `docs/handoffs/00-opencode-to-claude.md`

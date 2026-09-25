@@ -3,14 +3,13 @@
 > งานค้างที่ยังไม่ปิด · ลบแถวเมื่อเสร็จ
 > Owner = `Claude` | `OpenCode` | `human`
 
-Last updated: 2026-09-25 09:43 +07:00
-Updated by: OpenCode
+Last updated: 2026-09-25 10:05 +07:00
+Updated by: Claude
 
 | ID | Task | Owner | Priority | Trigger / due | Notes |
 |---|---|---|---|---|---|
-| L3 | ตัดสินใจรัน `node scripts/create-course-issues.mjs` หรือยัง | human | P2 | เมื่อพร้อมสร้าง course issues บน GitHub จริง | สร้าง issue จริงบน repo — ต้องขอผู้เรียนก่อนรันเสมอ |
-| L4 | ยืนยัน GitHub MCP (`claude mcp list` / `opencode mcp list`) จาก shell ใหม่ที่โหลด `.env` แล้ว (`.mcp.json` เพิ่งถูกสร้างวันนี้) | human | P2 | ก่อนใช้ GitHub MCP tools รอบถัดไป | session ปัจจุบันเปิดก่อนมี `.mcp.json` จึงยังไม่โหลด MCP config นี้ |
-| L5 | (ทางเลือก) `git push` commit `da83261` + commit รอบ OpenCode ขึ้น `origin/main` เมื่อพร้อม | human | P2 | เมื่อผู้เรียนต้องการ sync ขึ้น GitHub | ทั้งสอง CLI ยังไม่ push ตามขอบเขตที่ตกลงไว้ (commit เท่านั้น) |
+| L3 | รัน `node scripts/create-course-issues.mjs` เอง (สร้าง issue 10 อันจาก `.github/course-issues/*.md`) | human | P1 | ก่อน Lab 03 (plan-issues) | Claude Code auto-mode permission classifier บล็อกไม่ให้ Claude รันเองได้ — ต้องรันจากเทอร์มินัลของผู้เรียนโดยตรง หรือเพิ่ม permission rule ก่อน · **ห้ามรันซ้ำ** (ไม่ idempotent → issue ซ้ำ) |
+| L4b | เปิด `claude` (interactive TUI) ครั้งเดียว แล้วกด approve MCP servers `github`/`playwright` ที่ขึ้น "Pending approval" | human | P2 | ก่อนใช้ GitHub MCP tools ฝั่ง Claude | `opencode mcp list` ผ่านแล้ว (ดูปิดแล้วด้านล่าง) — เหลือแค่ Claude ฝั่งเดียวที่ต้องกด approve เอง เป็น one-time trust prompt ทำ headless ไม่ได้ |
 
 ## ปิดแล้ว (ย่อ — ย้ายหรือลบได้เมื่อรก)
 
@@ -21,6 +20,8 @@ Updated by: OpenCode
 | — | `npm install` + `npm test` เขียว, ติดตั้ง superpowers plugin (project scope), ทดสอบ Claude persistent agent-memory (B7) ผ่าน | 2026-09-25 |
 | L1 | Review diff + `git commit` (Lab 00 deliverables + `docs/PROFILE.md` ของ Lab 01 + `.claude/agent-memory/`) — commit `7ff2df0` | 2026-09-25 |
 | L2 | OpenCode `/init` merge เข้า `AGENTS.md` (C1 · diff จริง +25/−6 กฎเดิมครบ) + resume-session memory test (C5 · ผ่านทั้ง 3 steps โดยไม่ติด memory plugin) | 2026-09-25 |
+| L4 (OpenCode) | `opencode mcp list` → `github` ✔ connected, `playwright` ✔ connected (โหลด `.env` เข้า process env ก่อนเรียก) | 2026-09-25 |
+| L5 | `git push` commit `7ff2df0`, `da83261`, `9cdfe82` + commit ปิดงานรอบนี้ ขึ้น `origin/main` แล้ว | 2026-09-25 |
 
 ## กฎสั้น
 
