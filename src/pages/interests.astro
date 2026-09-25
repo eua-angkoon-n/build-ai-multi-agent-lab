@@ -4,13 +4,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadProfile } from '../lib/profile';
 const profile = loadProfile();
 ---
-<BaseLayout title={`Interests · ${profile.name}`}>
+<BaseLayout
+  title={`Interests · ${profile.name}`}
+  description={`สิ่งที่ ${profile.name} กำลังศึกษาและลงมือทดลองอยู่ตอนนี้`}
+>
   <section class="card">
     <h1>Interests</h1>
     <ul>
       {profile.interests.map((item) => <li>{item}</li>)}
     </ul>
-    <p>อัปเดตรายการสิ่งที่สนใจเร็ว ๆ นี้</p>
+    <p>
+      แต่ละหัวข้อด้านบนคือสิ่งที่กำลังลงมือเรียนรู้และทดลองใช้งานจริงอยู่ตอนนี้
+      ไม่ใช่แค่ความสนใจเชิงทฤษฎีลอย ๆ
+    </p>
   </section>
 </BaseLayout>
 

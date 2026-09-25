@@ -4,11 +4,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadProfile } from '../lib/profile';
 const profile = loadProfile();
 ---
-<BaseLayout title={`About · ${profile.name}`}>
+<BaseLayout
+  title={`About · ${profile.name}`}
+  description={`เรื่องราวและเส้นทางการทำงานของ ${profile.name}`}
+>
   <article class="card">
     <h1>About</h1>
     <p>{profile.bio}</p>
-    <p>เรื่องราวเพิ่มเติม — timeline, skills และลิงก์จะอัปเดตเร็ว ๆ นี้</p>
+    <p>
+      มุมที่เลือกเล่าคือแบบ problem-first ไม่ใช่ tool-first — เริ่มจากปัญหางานจริงที่เจอ
+      แล้วดูว่า AI agent เข้ามาช่วยแก้ตรงไหนได้บ้าง แทนที่จะพูดถึงเครื่องมือลอย ๆ
+      ยังอยู่ในช่วงเรียนรู้และลงมือทดลองจริงอยู่ ไม่ได้บอกว่าเชี่ยวชาญครบทุกด้านแล้ว
+    </p>
   </article>
 </BaseLayout>
 
