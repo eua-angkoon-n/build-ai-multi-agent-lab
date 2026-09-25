@@ -3,14 +3,16 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 10:30 +07:00
+Last updated: 2026-09-25 11:15 +07:00
 Updated by: Claude
 
 ## Current goal
 
-- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว ครบทุกข้อ** (L2–L5 ปิดหมด) · issue #1 (Lab 00) และ #2 (Lab 01) ปิดบน GitHub แล้วตามงานจริงที่เสร็จ · #3–#10 ยังเปิดอยู่ (ยังไม่เริ่ม) · เหลือ L6 (label) เป็นงานเสริม ไม่บล็อก · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
+- **Lab 02 (Debate) เริ่มแล้ว:** Brand Strategist ปิดแล้ว (มุมแรกจาก 3 มุมใน `docs/DEBATE.md`) — เหลือ UX Critic (prompt 02) และ Devil's Advocate (prompt 03) ก่อนจะ synthesize เป็น `docs/DECISIONS.md` (prompt 04) · Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว (L2–L5 ปิดหมด) · issue #1–#2 ปิดบน GitHub แล้ว · #3–#10 ยังเปิดอยู่ (ยังไม่เริ่ม) · L6 (label) เป็นงานเสริม ไม่บล็อก
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
+
+- **Lab 02 — Brand Strategist:** อ่าน `docs/PROFILE.md` แล้วเขียนความเห็นมุม brand (positioning/headline-tagline gap, audience หลัก=HR, เลือกมุมเล่าเรื่อง "practitioner learning in public", 3 ข้อเสนอปรับโทน) append ลง `docs/DEBATE.md` ภายใต้ `## Brand Strategist` — ไม่แตะ `docs/PROFILE.md` · ไม่ผสมมุม UX/Devil
 
 - **ปิด GitHub issue ตามงานที่เสร็จจริง:** issue #1 (Lab 00) และ #2 (Lab 01) — comment สรุปหลักฐาน + `state_reason: completed` แล้วปิด · #3–#10 ปล่อยเปิดไว้เพราะยังไม่เริ่มทำจริง — **พบปัญหาใหม่:** `mcp__github__add_issue_comment` ให้ `403 Resource not accessible by personal access token` (fine-grained PAT ใน `.env`/`.mcp.json` ยังไม่มีสิทธิ์เขียน issue แม้จะอ่าน/list ได้) ต้อง fallback ไปใช้ `gh issue comment` / `gh issue close` แทนซึ่งใช้ token คนละตัว (จาก `gh auth login`, scope `repo`) — สำคัญเพราะ **Lab 03 ชื่อ "Plan + GitHub issues via MCP" ตรงๆ** จะพังถ้า PAT ไม่มีสิทธิ์เขียน ต้องแก้ scope ของ fine-grained PAT ก่อนถึง Lab 03 (ดู Notes)
 
@@ -43,10 +45,11 @@ Updated by: Claude
 
 1. (human) ก่อนถึง Lab 03: แก้ fine-grained PAT ให้มีสิทธิ์ **Issues: Read and write** (ตอนนี้ที่ https://github.com/settings/personal-access-tokens มีแค่พอ read/list ไม่พอเขียน) ไม่งั้น GitHub MCP write tools (`issue_write`, `add_issue_comment` ฯลฯ) จะ 403 ต่อไป (L7)
 2. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
-3. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05` เมื่อผู้เรียนพร้อม
+3. (Claude · sub-agent ใช้แล้วทิ้ง) ต่อ **Lab 02** ด้วย UX Critic (`prompts/02-ux-critic.md`) แล้ว Devil's Advocate (`prompts/03-devils-advocate.md`) — แต่ละมุมต้องแยกเซสชัน/subagent ใหม่ ห้ามผสมกับรอบ Brand ที่ทำไปแล้ว
 
 ## Files changed in latest session
 
+- `docs/DEBATE.md` — สร้างใหม่ + เพิ่ม `## Brand Strategist` (Lab 02 step 1)
 - `docs/STATUS.md`, `docs/OPEN_LOOPS.md` — ปิด L4 (OpenCode ฝั่งเดียว), บันทึกว่า L3 ติด permission classifier, บันทึกผล push (writer รอบนี้ = Claude)
 - (รอบก่อน) `AGENTS.md` — merge จาก `/init` (โครงสร้างโปรเจกต์ + คำสั่ง npm ครบ)
 - (รอบก่อน) `docs/handoffs/00-opencode-to-claude.md` — handoff ส่งต่อ Claude ไป Lab 02
