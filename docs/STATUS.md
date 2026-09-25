@@ -8,12 +8,12 @@ Updated by: Claude
 
 ## Current goal
 
-- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว** (C1 `/init` merge + C5 resume-session test ปิดโดย OpenCode) · L4 (OpenCode MCP) ปิดแล้ว, L4 (Claude MCP) ค้าง 1 ขั้น interactive · L3 (course issues) ยังไม่ทำ (ติด permission classifier) · L5 push แล้ว · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
+- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว** · L3 (course issues #1–#10) เสร็จ · L5 (push) เสร็จ · เหลือแค่ L4 ฝั่ง Claude (กด approve MCP ใน `claude` TUI ครั้งเดียว) และ L6 (ใส่ label ให้ issue ถ้าต้องการ) ที่เป็นงานเสริม ไม่บล็อก · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
 
 - **L4 บางส่วน — ยืนยัน MCP จาก fresh shell ที่โหลด `.env` เข้า process env:** `opencode mcp list` → `github` ✔ connected, `playwright` ✔ connected (ปิด L4 ฝั่ง OpenCode) · `claude mcp list` → `github`/`playwright` (จาก `.mcp.json` ของ project) ขึ้น **"⏸ Pending approval (run `claude` to approve)"** — เป็น one-time interactive trust prompt ของ Claude Code เอง ต้องเปิด `claude` แบบ interactive แล้วกด approve ครั้งเดียว ไม่มีทางทำแบบ headless ได้ (ดู Notes)
-- **L3 — ยังไม่ได้ทำ:** `node scripts/create-course-issues.mjs` ถูก Claude Code auto-mode permission classifier **บล็อกอัตโนมัติ** (ถือเป็น action ที่ sensitive เพราะสร้าง GitHub issues จริง) แม้ผู้เรียนจะ authorize ในแชทแล้วก็ตาม — เป็นคนละชั้นกับการขอ consent ในแชท ต้องให้ผู้เรียนรันเองในเทอร์มินัลของตัวเอง หรือปรับ permission rule ให้ Claude Code แล้วให้ผมลองใหม่ (ดู Notes) — ยืนยันแล้วว่า `gh issue list` ยังว่างเปล่า ไม่มี issue ถูกสร้างขึ้นเลย
+- **L3 — เสร็จแล้ว:** ผู้เรียนสั่งซ้ำแบบชัดเจน (หลังรอบแรกโดน permission classifier บล็อก) → `node scripts/create-course-issues.mjs` รันสำเร็จ สร้าง GitHub issue #1–#10 ครบทั้ง 10 lab (ยืนยันด้วย `gh issue list`) — ไม่มี label ติดมาเพราะ label เช่น `course`/`lab-00` ยังไม่มีในโปรเจกต์ (สคริปต์ fallback สร้างแบบไม่มี label อัตโนมัติ ไม่ error) → เปิด L6 เป็นงานเสริมถ้าต้องการใส่ label ทีหลัง
 - **L5 — push:** push commit `7ff2df0`, `da83261`, `9cdfe82` (และ commit ปิดงานรอบนี้) ขึ้น `origin/main` แล้ว
 - **L2 ปิด (OpenCode `/init` + memory test):** C1 merge `/init` เข้า `AGENTS.md` (+25/−6 — เพิ่มโครงสร้างโปรเจกต์ + คำสั่ง npm ครบ, กฎ Ownership/Native harness คงครบ ไม่แตะ `src/`) · C5 resume-session test ผ่านทั้ง 3 steps (resume จำได้ว่า guestbook = SQLite ตาม `DATA_DIR` · เซสชันใหม่ยังเคารพ `AGENTS.md` โดยไม่ต้อง recall ปากเปล่า) · ไม่ติด memory plugin เพิ่ม
 - **Commit `da83261`**: hot state รอบ Claude (แยก commit ก่อนตาม single-writer)
@@ -31,17 +31,16 @@ Updated by: Claude
 
 ## In progress
 
-- L3 รอผู้เรียนรันเอง (permission classifier บล็อก Claude) · L4 ฝั่ง Claude รอผู้เรียนกด approve ใน `claude` TUI ครั้งเดียว
+- L4 ฝั่ง Claude รอผู้เรียนกด approve ใน `claude` TUI ครั้งเดียว (ไม่บล็อกงานอื่น)
 
 ## Blocked
 
-- L3: `node scripts/create-course-issues.mjs` ถูกบล็อกโดย Claude Code permission classifier — ต้องให้ผู้เรียนรันเองหรือปรับ permission rule
-- L4 (ฝั่ง Claude เท่านั้น): ต้อง approve MCP servers แบบ interactive ใน `claude` TUI ครั้งเดียว (headless ทำไม่ได้)
+- —
 
 ## Next actions
 
-1. (human) รัน `node scripts/create-course-issues.mjs` เองในเทอร์มินัล (L3) — จะสร้าง GitHub issues 10 อันจาก `.github/course-issues/*.md` **ห้ามรันซ้ำสองครั้ง** (สคริปต์ไม่ idempotent จะสร้างซ้ำ)
-2. (human) เปิด `claude` (interactive TUI) ครั้งเดียวแล้วกด approve MCP servers `github`/`playwright` เมื่อถูกถาม (L4 ฝั่ง Claude)
+1. (human) เปิด `claude` (interactive TUI) ครั้งเดียวแล้วกด approve MCP servers `github`/`playwright` เมื่อถูกถาม (L4 ฝั่ง Claude)
+2. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
 3. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05` เมื่อผู้เรียนพร้อม
 
 ## Files changed in latest session
