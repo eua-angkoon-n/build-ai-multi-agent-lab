@@ -27,7 +27,7 @@ function stripNonRendered(text: string): string {
   return out.replace(/<!--[\s\S]*?-->/g, '');
 }
 
-const COURSE_LEAK_PATTERN = /\blabs?\b\s*[-–—]?\s*0?\d+\b|แล็บ/i;
+const COURSE_LEAK_PATTERN = /\blabs?\b\s*[-–—]?\s*0?\d+\b|แล็บ|\bcourse\b|\bworkshop\b/i;
 
 describe('public site must not leak course/lab references', () => {
   const files = collectMarkupFiles(join(process.cwd(), 'src'));
