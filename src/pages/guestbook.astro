@@ -32,15 +32,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       entries.append(empty);
       return;
     }
+    const list = document.createElement('ul');
     for (const e of rows) {
-      const p = document.createElement('p');
+      const li = document.createElement('li');
       const strong = document.createElement('strong');
       strong.textContent = e.name;
       const small = document.createElement('small');
       small.textContent = e.created_at;
-      p.append(strong, `: ${e.message}`, document.createElement('br'), small);
-      entries.append(p);
+      li.append(strong, `: ${e.message}`, document.createElement('br'), small);
+      list.append(li);
     }
+    entries.append(list);
   }
 
   async function load() {
