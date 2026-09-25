@@ -3,14 +3,16 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 10:20 +07:00
+Last updated: 2026-09-25 10:30 +07:00
 Updated by: Claude
 
 ## Current goal
 
-- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว ครบทุกข้อ** (L2–L5 ปิดหมด) · เหลือแค่ L6 (ใส่ label ให้ issue) เป็นงานเสริม ไม่บล็อก · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
+- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว ครบทุกข้อ** (L2–L5 ปิดหมด) · issue #1 (Lab 00) และ #2 (Lab 01) ปิดบน GitHub แล้วตามงานจริงที่เสร็จ · #3–#10 ยังเปิดอยู่ (ยังไม่เริ่ม) · เหลือ L6 (label) เป็นงานเสริม ไม่บล็อก · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
+
+- **ปิด GitHub issue ตามงานที่เสร็จจริง:** issue #1 (Lab 00) และ #2 (Lab 01) — comment สรุปหลักฐาน + `state_reason: completed` แล้วปิด · #3–#10 ปล่อยเปิดไว้เพราะยังไม่เริ่มทำจริง — **พบปัญหาใหม่:** `mcp__github__add_issue_comment` ให้ `403 Resource not accessible by personal access token` (fine-grained PAT ใน `.env`/`.mcp.json` ยังไม่มีสิทธิ์เขียน issue แม้จะอ่าน/list ได้) ต้อง fallback ไปใช้ `gh issue comment` / `gh issue close` แทนซึ่งใช้ token คนละตัว (จาก `gh auth login`, scope `repo`) — สำคัญเพราะ **Lab 03 ชื่อ "Plan + GitHub issues via MCP" ตรงๆ** จะพังถ้า PAT ไม่มีสิทธิ์เขียน ต้องแก้ scope ของ fine-grained PAT ก่อนถึง Lab 03 (ดู Notes)
 
 - **L4 ปิดครบทั้งสองฝั่ง:** ผู้เรียนเปิด `claude` interactive เองแล้วกด approve MCP servers ที่ค้างอยู่ → `claude mcp list` ไม่ขึ้น "Pending approval" แล้ว (`playwright` ✔ Connected, `github` ขึ้น timeout ชั่วคราวตอน fetch tools list ผ่าน subprocess check แต่ยืนยันแยกด้วย `mcp__github__get_me` ในเซสชันจริงว่าเชื่อมต่อและ auth ได้ปกติ — บัญชี `eua-angkoon-n`) · `opencode mcp list` → `github` ✔ connected, `playwright` ✔ connected (ปิด L4 ฝั่ง OpenCode ไปก่อนหน้านี้แล้ว)
 - **L3 — เสร็จแล้ว:** ผู้เรียนสั่งซ้ำแบบชัดเจน (หลังรอบแรกโดน permission classifier บล็อก) → `node scripts/create-course-issues.mjs` รันสำเร็จ สร้าง GitHub issue #1–#10 ครบทั้ง 10 lab (ยืนยันด้วย `gh issue list`) — ไม่มี label ติดมาเพราะ label เช่น `course`/`lab-00` ยังไม่มีในโปรเจกต์ (สคริปต์ fallback สร้างแบบไม่มี label อัตโนมัติ ไม่ error) → เปิด L6 เป็นงานเสริมถ้าต้องการใส่ label ทีหลัง
@@ -39,8 +41,9 @@ Updated by: Claude
 
 ## Next actions
 
-1. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
-2. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05` เมื่อผู้เรียนพร้อม
+1. (human) ก่อนถึง Lab 03: แก้ fine-grained PAT ให้มีสิทธิ์ **Issues: Read and write** (ตอนนี้ที่ https://github.com/settings/personal-access-tokens มีแค่พอ read/list ไม่พอเขียน) ไม่งั้น GitHub MCP write tools (`issue_write`, `add_issue_comment` ฯลฯ) จะ 403 ต่อไป (L7)
+2. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
+3. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05` เมื่อผู้เรียนพร้อม
 
 ## Files changed in latest session
 
