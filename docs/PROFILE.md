@@ -4,7 +4,7 @@
 Tae
 
 ## Headline
-Programmer ที่สนใจ AI agents
+โปรแกรมเมอร์ที่กำลังลงมือปรับใช้ AI agents กับงานจริง
 
 ## Bio
 ทำงานเป็นโปรแกรมเมอร์อยู่ที่บริษัท จงสถิตย์ จำกัด ช่วงหลังเริ่มสนใจเครื่องมือ AI agents มากขึ้นเรื่อยๆ ไม่ใช่แค่ในฐานะของเล่นใหม่ แต่มองว่าเป็นเครื่องมือที่ช่วยงานจริงได้ถ้าเข้าใจและปรับให้เข้ากับหน้างาน
@@ -15,9 +15,9 @@ Programmer ที่สนใจ AI agents
 HR / ผู้จ้างงาน และลูกค้า
 
 ## Interests
-- AI Agentic / AI Agents / Multi-Agent Systems
-- Web Development
-- Data Analysis
+- AI Agentic / AI Agents / Multi-Agent Systems — กำลังศึกษาและทดลองนำ AI agents มาปรับใช้กับงานจริงที่ทำอยู่ ไม่ใช่แค่ทฤษฎี
+- Web Development — งานหลักที่ทำอยู่ทุกวัน เป็นฐานที่เอาไปต่อยอดกับ AI tooling
+- Data Analysis — ใช้วิเคราะห์ข้อมูลประกอบการตัดสินใจในงานเขียนโปรแกรม
 
 ## Contact
 - email: euaangkoon.n@gmail.com

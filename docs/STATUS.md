@@ -3,14 +3,18 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 10:30 +07:00
+Last updated: 2026-09-25 12:15 +07:00
 Updated by: Claude
 
 ## Current goal
 
-- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว ครบทุกข้อ** (L2–L5 ปิดหมด) · issue #1 (Lab 00) และ #2 (Lab 01) ปิดบน GitHub แล้วตามงานจริงที่เสร็จ · #3–#10 ยังเปิดอยู่ (ยังไม่เริ่ม) · เหลือ L6 (label) เป็นงานเสริม ไม่บล็อก · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
+- **Lab 02 (Debate) ปิดแล้ว** — `docs/DEBATE.md` (3 มุม: Brand Strategist / UX Critic / Devil's Advocate ผ่าน sub-agent แยกกัน) + `docs/DECISIONS.md` (D1–D8) เสร็จสมบูรณ์ · `docs/PROFILE.md` แก้ headline + เพิ่มคำอธิบาย Interests ตาม D1/D3 · **ค้าง 1 จุดที่ต้องมนุษย์ยืนยันก่อน Lab 04**: เอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้หรือไม่ (D7 ใน DECISIONS.md, เปิดเป็น L8 ใน OPEN_LOOPS) · พร้อมต่อ **Lab 03 (Plan + GitHub issues)** เมื่อ L7 (PAT scope) แก้แล้ว
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
+
+- **Lab 02 (Debate) เสร็จ:** รัน 3 sub-agent แยกกันตามลำดับ (Brand Strategist → UX Critic → Devil's Advocate) แต่ละตัว append เข้า `docs/DEBATE.md` คนละหัวข้อ ไม่ปนกัน (ตรวจแล้วว่าเป็นเสียงต่างกันจริง ไม่ใช่คนเดียวเขียนคลอ) · synthesize `docs/DECISIONS.md` เอง (facilitator) เป็น D1–D8 ครบ + Out of scope + เกณฑ์พร้อม Lab 04 · แก้ `docs/PROFILE.md` 2 จุด (headline ตาม D1, คำอธิบาย Interests ตาม D3) บันทึกไว้ใน DECISIONS.md ว่าแก้อะไร
+- **เจอ conflict ระหว่าง session:** ระหว่างทำ Lab 02 พบว่ามี Claude Code session อื่นของผู้เรียนเองกำลัง idle อยู่พร้อมกัน (ชื่อ "brand strategy personal site", "ux-critic-debate-doc", "lab-debate-missing-brand-section") — ถามผู้เรียนแล้วยืนยันว่าเป็นของตัวเอง ให้ session นี้ทำต่อได้ ไม่มี conflict เกิดขึ้นจริงบน `docs/DEBATE.md` (ตรวจ `git status` ตลอดทาง)
+- **เพิ่ม permission rule:** auto-mode classifier บล็อก sub-agent แก้ `docs/DEBATE.md` ด้วยเหตุผล "Modify Shared Resources" (เพราะเจอ session อื่นแตะไฟล์เดียวกัน) → ผู้เรียนสั่งเพิ่ม `permissions.allow: ["Edit(docs/**)", "Write(docs/**)"]` ใน `.claude/settings.local.json` (ไฟล์ personal, gitignored) แก้ได้แล้ว
 
 - **ปิด GitHub issue ตามงานที่เสร็จจริง:** issue #1 (Lab 00) และ #2 (Lab 01) — comment สรุปหลักฐาน + `state_reason: completed` แล้วปิด · #3–#10 ปล่อยเปิดไว้เพราะยังไม่เริ่มทำจริง — **พบปัญหาใหม่:** `mcp__github__add_issue_comment` ให้ `403 Resource not accessible by personal access token` (fine-grained PAT ใน `.env`/`.mcp.json` ยังไม่มีสิทธิ์เขียน issue แม้จะอ่าน/list ได้) ต้อง fallback ไปใช้ `gh issue comment` / `gh issue close` แทนซึ่งใช้ token คนละตัว (จาก `gh auth login`, scope `repo`) — สำคัญเพราะ **Lab 03 ชื่อ "Plan + GitHub issues via MCP" ตรงๆ** จะพังถ้า PAT ไม่มีสิทธิ์เขียน ต้องแก้ scope ของ fine-grained PAT ก่อนถึง Lab 03 (ดู Notes)
 
@@ -41,13 +45,18 @@ Updated by: Claude
 
 ## Next actions
 
-1. (human) ก่อนถึง Lab 03: แก้ fine-grained PAT ให้มีสิทธิ์ **Issues: Read and write** (ตอนนี้ที่ https://github.com/settings/personal-access-tokens มีแค่พอ read/list ไม่พอเขียน) ไม่งั้น GitHub MCP write tools (`issue_write`, `add_issue_comment` ฯลฯ) จะ 403 ต่อไป (L7)
-2. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
-3. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05` เมื่อผู้เรียนพร้อม
+1. **(human) ยืนยันก่อน Lab 04:** เอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้หรือไม่ (D7 ใน `docs/DECISIONS.md`) — ถ้ายังไม่ยืนยัน ให้ implement ด้วยคำเลี่ยงทั่วไปแทน (L8)
+2. (human) ก่อนถึง Lab 03: แก้ fine-grained PAT ให้มีสิทธิ์ **Issues: Read and write** (ตอนนี้ที่ https://github.com/settings/personal-access-tokens มีแค่พอ read/list ไม่พอเขียน) ไม่งั้น GitHub MCP write tools (`issue_write`, `add_issue_comment` ฯลฯ) จะ 403 ต่อไป (L7)
+3. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
+4. (Claude/OpenCode) เริ่ม **Lab 03 (Plan + GitHub issues)** เมื่อ L7 แก้แล้ว — ดู `labs/lab-03-plan-issues/README.md`
 
 ## Files changed in latest session
 
-- `docs/STATUS.md`, `docs/OPEN_LOOPS.md` — ปิด L4 (OpenCode ฝั่งเดียว), บันทึกว่า L3 ติด permission classifier, บันทึกผล push (writer รอบนี้ = Claude)
+- `docs/DEBATE.md` (ใหม่) — 3 มุม Brand Strategist / UX Critic / Devil's Advocate ผ่าน sub-agent แยกกัน
+- `docs/DECISIONS.md` (ใหม่) — D1–D8 + Out of scope + เกณฑ์พร้อม Lab 04
+- `docs/PROFILE.md` — แก้ headline (D1) + เพิ่มคำอธิบาย Interests (D3)
+- `.claude/settings.local.json` — เพิ่ม `permissions.allow` สำหรับ `docs/**` (แก้ auto-mode block ระหว่าง sub-agent เขียน DEBATE.md)
+- `docs/STATUS.md`, `docs/OPEN_LOOPS.md` — ปิด Lab 02, เปิด L8 (ยืนยันชื่อนายจ้าง), writer รอบนี้ = Claude
 - (รอบก่อน) `AGENTS.md` — merge จาก `/init` (โครงสร้างโปรเจกต์ + คำสั่ง npm ครบ)
 - (รอบก่อน) `docs/handoffs/00-opencode-to-claude.md` — handoff ส่งต่อ Claude ไป Lab 02
 - (รอบก่อน) `.claude/settings.json`, `opencode.json`, `.mcp.json`, `.claude/agent-memory/frontend/*`
