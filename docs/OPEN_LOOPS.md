@@ -3,15 +3,14 @@
 > งานค้างที่ยังไม่ปิด · ลบแถวเมื่อเสร็จ
 > Owner = `Claude` | `OpenCode` | `human`
 
-Last updated: 2026-09-25 13:56 +07:00
-Updated by: OpenCode
+Last updated: 2026-09-25 14:25 +07:00
+Updated by: Claude
 
 | ID | Task | Owner | Priority | Trigger / due | Notes |
 |---|---|---|---|---|---|
 | L6 | ใส่ label ให้ issue #1–#10 (สร้างไปแบบไม่มี label เพราะ label เช่น `course`, `lab-00` ยังไม่มีในโปรเจกต์) | human | P3 | ทางเลือก ไม่บล็อกงานถัดไป | ดู `docs/OPEN_LOOPS.md` ปิดแล้ว L3 — สร้าง label ก่อนแล้วค่อย label ทีหลังได้ |
-| L12 | แก้ `src/pages/guestbook.astro` 2 จุดจาก `docs/fe-be-contract-check.md`: (1) ฟอร์มไม่แสดง error เมื่อ POST ไม่ผ่าน (กลืนเงียบ) (2) `entries.innerHTML` แทรก `e.name`/`e.message` ดิบ = **stored XSS ที่ live แล้ว** หลัง backend persist จริง (L9 ปิดไปแล้ว) | Claude/frontend | P1 | ก่อน deploy/ship (Lab 06/08) | แยกออกจาก L9 — UI เป็น ownership ของ Claude/frontend เสมอ · backend พร้อมแล้ว: POST คืน 400 + `{error}` เมื่อ validation ไม่ผ่าน ฟอร์มเช็ค `res.ok` แล้วแสดง `data.error` ได้เลย |
-| L10 | ปิด D5 (guestbook v1 scope) อย่างเป็นทางการใน `docs/DECISIONS.md` ก่อน ship จริง — หน้า `/guestbook` + nav link + `db.ts` schema scaffold มีอยู่แล้วแต่ decision ยังไม่ปิด | human + facilitator | P2 | ก่อน merge PR #17 หรือก่อนเริ่ม deploy | พบระหว่างตรวจสัญญา cross-harness (OpenCode), ไม่ใช่ blocker ของ Lab 04 เอง |
-| L11 | ตัดสินใจชะตากรรมของ `/api/contact` (`src/pages/api/contact.ts`) — กลายเป็น orphan endpoint แล้วหลัง D2 (ไม่มีฟอร์มเรียกใช้อีกต่อไป) | OpenCode + human | P3 | Lab 05 | ลบทิ้งหรือเก็บไว้เป็น API สำรอง — ดู `docs/fe-be-contract-check.md` |
+| L10 | ปิด D5 (guestbook v1 scope) อย่างเป็นทางการใน `docs/DECISIONS.md` ก่อน ship จริง — หน้า `/guestbook` + nav link + `db.ts` schema scaffold มีอยู่แล้วแต่ decision ยังไม่ปิด | human + facilitator | P2 | ก่อน ship/deploy จริง | พบระหว่างตรวจสัญญา cross-harness (OpenCode), ไม่ใช่ blocker ของ Lab 04/05 เอง |
+| L13 | Code-quality nits จาก re-review ของ PR #19 (merged แล้ว ไม่ใช่ blocker): (1) `EMAIL_RE` ใน `db.ts` ยอมรับอีเมลรูปแบบแปลก (trailing/consecutive dots) (2) `NAME_MAX`/`MESSAGE_MAX` เป็น magic number ซ้ำกับ `maxlength` ใน `guestbook.astro` คนละไฟล์คนละ ownership ไม่มี single source of truth (3) `json()` helper ซ้ำกันใน `contact.ts`/`guestbook.ts` สองที่ (4) `request.json()` parse-error catch ปนกันระหว่าง client 400 กับ server-side error จริง | OpenCode/backend | P3 | เมื่อมีเวลาว่าง ไม่บล็อก Lab ถัดไป | พบหลัง PR #19 merge แล้วจากรอบ code-review — ไม่กระทบความปลอดภัย/ฟังก์ชันปัจจุบัน |
 
 ## ปิดแล้ว (ย่อ — ย้ายหรือลบได้เมื่อรก)
 
@@ -33,6 +32,8 @@ Updated by: OpenCode
 | L8 | เจ้าของโปรไฟล์ยืนยันแล้วว่าเอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้ — อัปเดต D7 ใน `docs/DECISIONS.md` + ปิด issue #16 | 2026-09-25 |
 | — | Lab 04 (Frontend UI) เสร็จ — 4 หน้า + Guestbook link ตาม PROFILE/DECISIONS, แก้ course-leak/D2-violation/palette/placeholder-copy, `npm test`+`npm run build` เขียว, cross-harness contract check (`docs/fe-be-contract-check.md`) เขียนแล้ว, commit `5fd5708` + PR #17 เปิดแล้ว | 2026-09-25 |
 | L9 (ส่วน backend) | Implement persistence จริงใน `src/lib/db.ts` (`insertContact`/`insertGuestbook`/`listGuestbook` + `ValidationError`) + เชื่อม `src/pages/api/{guestbook,contact}.ts` (response contract 201/400/500, ไม่ leak stack/SQL) — `npm run test:labs` เขียว 2/2, `npm test` เขียว 3/3 · ส่วน UI ที่ L9 เดิมรวมไว้แยกเป็น L12 (owner Claude/frontend) · PR body ร่างไว้ที่ `docs/lab05-pr-body.md` รอผู้เรียน review diff แล้วเปิด PR เอง | 2026-09-25 |
+| L12 | แก้ `src/pages/guestbook.astro` — POST error surfacing + `entries.innerHTML` → `createElement`/`textContent` (กัน stored XSS) | 2026-09-25 (PR #20 merged) |
+| L11 | ตัดสินใจชะตากรรมของ `/api/contact` — **ลบ `src/pages/api/contact.ts`** ทิ้ง (คง `insertContact`/`ContactMessage` ใน `db.ts` ไว้เพราะ `test:labs` เรียกใช้ตรง) → D9 ใน `docs/DECISIONS.md` · ยืนยัน `npm run test:labs` เขียว 2/2 หลังลบ | 2026-09-25 (Lab 05b swarm, turn 3/20) |
 
 ## กฎสั้น
 
