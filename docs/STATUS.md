@@ -3,14 +3,16 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 13:00 +07:00
+Last updated: 2026-09-25 13:20 +07:00
 Updated by: Claude
 
 ## Current goal
 
-- **Lab 02 และ Lab 03 ปิดแล้ว** — Lab 02: `docs/DEBATE.md` + `docs/DECISIONS.md` (D1–D8) · Lab 03: L7 (PAT scope) ผู้เรียนแก้เองแล้ว → สร้าง GitHub issue #12–#16 จริงผ่าน GitHub MCP (map กับ D1/D2/D3+D4/D5/D7) + เพิ่ม `## Lab 03 — MCP vs gh` ใน DECISIONS.md · ปิด issue #3 (Lab 02 tracking) ตามงานจริง · **ค้าง 1 จุดที่ต้องมนุษย์ยืนยันก่อน Lab 04**: เอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้หรือไม่ (D7/issue #16/L8) · พร้อมต่อ **Lab 04 (Frontend)** เมื่อ L8 ยืนยันแล้ว
+- **Lab 02 และ Lab 03 ปิดแล้ว ไม่มีบล็อกเกอร์เหลือ** — Lab 02: `docs/DEBATE.md` + `docs/DECISIONS.md` (D1–D8) · Lab 03: issue #12–#16 สร้างผ่าน MCP + `## Lab 03 — MCP vs gh` · **L8 ปิดแล้ว**: เจ้าของโปรไฟล์ยืนยันเอ่ยชื่อ "จงสถิตย์" ได้ (D7 อัปเดต, issue #16 ปิด) · พร้อมเริ่ม **Lab 04 (Frontend)** จาก issue #12–#14
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
+
+- **L8 ปิด:** เจ้าของโปรไฟล์ (Tae) ยืนยันเอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้ → อัปเดต D7 ใน `docs/DECISIONS.md` เป็น "ยืนยันแล้ว" + comment ปิด issue #16 ผ่าน MCP
 
 - **Lab 03 (Plan + GitHub issues) เสร็จ:** ยืนยัน PAT scope แก้แล้ว (`mcp__github__get_me`/`add_issue_comment`/`issue_write` ทำงานได้ไม่ 403 อีกต่อไป) → สร้าง issue #12–#16 ผ่าน GitHub MCP จาก `docs/DECISIONS.md` (D1, D2, D3+D4, D5, D7) พร้อม acceptance checklist ทุกอัน · ปิด issue #3 (Lab 02 tracking) พร้อม comment หลักฐาน · เพิ่มตาราง issue + หัวข้อ `## Lab 03 — MCP vs gh` (5 bullet) ท้าย `docs/DECISIONS.md` · ให้คำสั่ง PowerShell สำหรับสร้าง draft issue ด้วย `gh` แก่ผู้เรียนไปรันเอง (ยังไม่ได้รัน — เป็นทางเลือกเสริมเพื่อประสบการณ์ ไม่จำเป็นต่อเกณฑ์ผ่าน Lab)
 
@@ -47,10 +49,9 @@ Updated by: Claude
 
 ## Next actions
 
-1. **(human) ยืนยันก่อน Lab 04:** เอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้หรือไม่ (D7 ใน `docs/DECISIONS.md` / issue #16) — ถ้ายังไม่ยืนยัน ให้ implement ด้วยคำเลี่ยงทั่วไปแทน (L8)
+1. (Claude · frontend) เริ่ม **Lab 04 (Frontend)** จาก issue #12–#14 — ดู `labs/lab-04-frontend/README.md`
 2. (human · ทางเลือก) รันคำสั่ง `gh issue create` ที่ Claude ให้ไว้ เพื่อประสบการณ์เปรียบเทียบ MCP vs gh ให้ครบ (ไม่บังคับ — เกณฑ์ผ่าน Lab 03 ครบแล้วโดยไม่ต้องทำข้อนี้)
 3. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
-4. (Claude · frontend) เริ่ม **Lab 04 (Frontend)** จาก issue #12–#14 เมื่อ L8 ยืนยันแล้ว — ดู `labs/lab-04-frontend/README.md`
 
 ## Files changed in latest session
 

@@ -3,12 +3,11 @@
 > งานค้างที่ยังไม่ปิด · ลบแถวเมื่อเสร็จ
 > Owner = `Claude` | `OpenCode` | `human`
 
-Last updated: 2026-09-25 13:00 +07:00
+Last updated: 2026-09-25 13:20 +07:00
 Updated by: Claude
 
 | ID | Task | Owner | Priority | Trigger / due | Notes |
 |---|---|---|---|---|---|
-| L8 | ยืนยันว่าเอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้หรือไม่ (D7 ใน `docs/DECISIONS.md` / issue #16) | human | P1 | ก่อน Lab 04 (Frontend) | ถ้ายังไม่ยืนยัน Lab 04 ต้อง implement ด้วยคำเลี่ยงทั่วไปแทนชื่อจริงใน `docs/PROFILE.md`/`src/` |
 | L6 | ใส่ label ให้ issue #1–#10 (สร้างไปแบบไม่มี label เพราะ label เช่น `course`, `lab-00` ยังไม่มีในโปรเจกต์) | human | P3 | ทางเลือก ไม่บล็อกงานถัดไป | ดู `docs/OPEN_LOOPS.md` ปิดแล้ว L3 — สร้าง label ก่อนแล้วค่อย label ทีหลังได้ |
 
 ## ปิดแล้ว (ย่อ — ย้ายหรือลบได้เมื่อรก)
@@ -28,6 +27,7 @@ Updated by: Claude
 | L2b (Lab 02) | Debate — 3 sub-agent แยกกัน (Brand Strategist / UX Critic / Devil's Advocate) เขียน `docs/DEBATE.md` ครบ 3 มุม + synthesize `docs/DECISIONS.md` (D1–D8) + แก้ `docs/PROFILE.md` ตาม D1/D3 | 2026-09-25 |
 | L7 | แก้ fine-grained PAT ให้มีสิทธิ์ **Issues: Read and write** — ผู้เรียนแก้เองที่ GitHub settings แล้ว ยืนยันด้วย `mcp__github__issue_write`/`add_issue_comment` สร้าง+comment+close ได้จริงไม่ 403 | 2026-09-25 |
 | L3b (Lab 03) | สร้าง GitHub issue #12–#16 ผ่าน MCP จาก `docs/DECISIONS.md` (D1/D2/D3+D4/D5/D7) + ปิด issue #3 (Lab 02) + เพิ่ม `## Lab 03 — MCP vs gh` ใน DECISIONS.md | 2026-09-25 |
+| L8 | เจ้าของโปรไฟล์ยืนยันแล้วว่าเอ่ยชื่อนายจ้าง "จงสถิตย์" บนเว็บสาธารณะได้ — อัปเดต D7 ใน `docs/DECISIONS.md` + ปิด issue #16 | 2026-09-25 |
 
 ## กฎสั้น
 
