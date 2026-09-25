@@ -3,16 +3,16 @@
 > อ่านทุก session · **สั้น** · single-writer ต่อรอบ
 > ดู [`COURSE.md`](../COURSE.md) ชั้น State (Hot)
 
-Last updated: 2026-09-25 10:05 +07:00
+Last updated: 2026-09-25 10:20 +07:00
 Updated by: Claude
 
 ## Current goal
 
-- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว** · L3 (course issues #1–#10) เสร็จ · L5 (push) เสร็จ · เหลือแค่ L4 ฝั่ง Claude (กด approve MCP ใน `claude` TUI ครั้งเดียว) และ L6 (ใส่ label ให้ issue ถ้าต้องการ) ที่เป็นงานเสริม ไม่บล็อก · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
+- **Lab 00 ผ่านสมบูรณ์ทั้งสองฝั่งแล้ว ครบทุกข้อ** (L2–L5 ปิดหมด) · เหลือแค่ L6 (ใส่ label ให้ issue) เป็นงานเสริม ไม่บล็อก · พร้อมต่อ **Lab 02 (Debate)** ฝั่ง Claude จาก `docs/PROFILE.md` เมื่อพร้อม — ดู handoff `docs/handoffs/00-opencode-to-claude.md`
 
 ## Done (วันนี้ 2026-09-25 บนเครื่องนี้)
 
-- **L4 บางส่วน — ยืนยัน MCP จาก fresh shell ที่โหลด `.env` เข้า process env:** `opencode mcp list` → `github` ✔ connected, `playwright` ✔ connected (ปิด L4 ฝั่ง OpenCode) · `claude mcp list` → `github`/`playwright` (จาก `.mcp.json` ของ project) ขึ้น **"⏸ Pending approval (run `claude` to approve)"** — เป็น one-time interactive trust prompt ของ Claude Code เอง ต้องเปิด `claude` แบบ interactive แล้วกด approve ครั้งเดียว ไม่มีทางทำแบบ headless ได้ (ดู Notes)
+- **L4 ปิดครบทั้งสองฝั่ง:** ผู้เรียนเปิด `claude` interactive เองแล้วกด approve MCP servers ที่ค้างอยู่ → `claude mcp list` ไม่ขึ้น "Pending approval" แล้ว (`playwright` ✔ Connected, `github` ขึ้น timeout ชั่วคราวตอน fetch tools list ผ่าน subprocess check แต่ยืนยันแยกด้วย `mcp__github__get_me` ในเซสชันจริงว่าเชื่อมต่อและ auth ได้ปกติ — บัญชี `eua-angkoon-n`) · `opencode mcp list` → `github` ✔ connected, `playwright` ✔ connected (ปิด L4 ฝั่ง OpenCode ไปก่อนหน้านี้แล้ว)
 - **L3 — เสร็จแล้ว:** ผู้เรียนสั่งซ้ำแบบชัดเจน (หลังรอบแรกโดน permission classifier บล็อก) → `node scripts/create-course-issues.mjs` รันสำเร็จ สร้าง GitHub issue #1–#10 ครบทั้ง 10 lab (ยืนยันด้วย `gh issue list`) — ไม่มี label ติดมาเพราะ label เช่น `course`/`lab-00` ยังไม่มีในโปรเจกต์ (สคริปต์ fallback สร้างแบบไม่มี label อัตโนมัติ ไม่ error) → เปิด L6 เป็นงานเสริมถ้าต้องการใส่ label ทีหลัง
 - **L5 — push:** push commit `7ff2df0`, `da83261`, `9cdfe82` (และ commit ปิดงานรอบนี้) ขึ้น `origin/main` แล้ว
 - **L2 ปิด (OpenCode `/init` + memory test):** C1 merge `/init` เข้า `AGENTS.md` (+25/−6 — เพิ่มโครงสร้างโปรเจกต์ + คำสั่ง npm ครบ, กฎ Ownership/Native harness คงครบ ไม่แตะ `src/`) · C5 resume-session test ผ่านทั้ง 3 steps (resume จำได้ว่า guestbook = SQLite ตาม `DATA_DIR` · เซสชันใหม่ยังเคารพ `AGENTS.md` โดยไม่ต้อง recall ปากเปล่า) · ไม่ติด memory plugin เพิ่ม
@@ -31,7 +31,7 @@ Updated by: Claude
 
 ## In progress
 
-- L4 ฝั่ง Claude รอผู้เรียนกด approve ใน `claude` TUI ครั้งเดียว (ไม่บล็อกงานอื่น)
+- —
 
 ## Blocked
 
@@ -39,9 +39,8 @@ Updated by: Claude
 
 ## Next actions
 
-1. (human) เปิด `claude` (interactive TUI) ครั้งเดียวแล้วกด approve MCP servers `github`/`playwright` เมื่อถูกถาม (L4 ฝั่ง Claude)
-2. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
-3. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05` เมื่อผู้เรียนพร้อม
+1. (human · ทางเลือก) สร้าง label (`course`, `lab-00` ฯลฯ) แล้วติด label ให้ issue #1–#10 ทีหลังถ้าต้องการ (L6)
+2. (Claude · ตาม handoff) เริ่ม **Lab 02 (Debate)** จาก `docs/PROFILE.md` — `labs/lab-02-debate/README.md` + `prompts/01–05` เมื่อผู้เรียนพร้อม
 
 ## Files changed in latest session
 

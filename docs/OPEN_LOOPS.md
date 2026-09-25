@@ -3,12 +3,11 @@
 > งานค้างที่ยังไม่ปิด · ลบแถวเมื่อเสร็จ
 > Owner = `Claude` | `OpenCode` | `human`
 
-Last updated: 2026-09-25 10:05 +07:00
+Last updated: 2026-09-25 10:20 +07:00
 Updated by: Claude
 
 | ID | Task | Owner | Priority | Trigger / due | Notes |
 |---|---|---|---|---|---|
-| L4b | เปิด `claude` (interactive TUI) ครั้งเดียว แล้วกด approve MCP servers `github`/`playwright` ที่ขึ้น "Pending approval" | human | P2 | ก่อนใช้ GitHub MCP tools ฝั่ง Claude | `opencode mcp list` ผ่านแล้ว (ดูปิดแล้วด้านล่าง) — เหลือแค่ Claude ฝั่งเดียวที่ต้องกด approve เอง เป็น one-time trust prompt ทำ headless ไม่ได้ |
 | L6 | ใส่ label ให้ issue #1–#10 (สร้างไปแบบไม่มี label เพราะ label เช่น `course`, `lab-00` ยังไม่มีในโปรเจกต์) | human | P3 | ทางเลือก ไม่บล็อกงานถัดไป | ดู `docs/OPEN_LOOPS.md` ปิดแล้ว L3 — สร้าง label ก่อนแล้วค่อย label ทีหลังได้ |
 
 ## ปิดแล้ว (ย่อ — ย้ายหรือลบได้เมื่อรก)
@@ -23,6 +22,7 @@ Updated by: Claude
 | L4 (OpenCode) | `opencode mcp list` → `github` ✔ connected, `playwright` ✔ connected (โหลด `.env` เข้า process env ก่อนเรียก) | 2026-09-25 |
 | L5 | `git push` commit `7ff2df0`, `da83261`, `9cdfe82` + commit ปิดงานรอบนี้ ขึ้น `origin/main` แล้ว | 2026-09-25 |
 | L3 | รัน `node scripts/create-course-issues.mjs` สำเร็จ (ผู้เรียนสั่งซ้ำแบบชัดเจนหลัง permission classifier บล็อกรอบแรก) — สร้าง issue #1–#10 ครบ (ไม่มี label เพราะ label ยังไม่มีในโปรเจกต์ → ดู L6) | 2026-09-25 |
+| L4b | ผู้เรียนเปิด `claude` interactive แล้วกด approve MCP servers เอง — `claude mcp list` ไม่ขึ้น pending แล้ว, ยืนยัน `github` MCP ทำงานจริงด้วย `mcp__github__get_me` ในเซสชัน (`playwright` ✔ Connected ด้วย) | 2026-09-25 |
 
 ## กฎสั้น
 
