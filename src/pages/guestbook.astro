@@ -11,7 +11,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <input id="name" name="name" required maxlength="80" />
       <label for="message">Message</label>
       <textarea id="message" name="message" rows="3" required maxlength="500"></textarea>
-      <p style="margin-top:1rem"><button type="submit">Sign</button></p>
+      <p style="margin-top:1rem">
+        <button type="submit">Sign</button>
+      </p>
+      <p id="gb-status" role="status" aria-live="polite"></p>
     </form>
     <div id="entries" class="card" style="margin-top:1.25rem" aria-live="polite">Loading…</div>
   </section>
@@ -19,6 +22,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <script>
   const entries = document.getElementById('entries');
   const form = document.getElementById('gb-form');
+  const status = document.getElementById('gb-status');
+
+  function renderEntries(rows: { name: string; message: string; created_at: string }[]) {
+    entries.replaceChildren();
+    if (!rows.length) {
+      const empty = document.createElement('p');
+      empty.textContent = 'No entries yet.';
+      entries.append(empty);
+      return;
+    }
+    for (const e of rows) {
+      const p = document.createElement('p');
+      const strong = document.createElement('strong');
+      strong.textContent = e.name;
+      const small = document.createElement('small');
+      small.textContent = e.created_at;
+      p.append(strong, `: ${e.message}`, document.createElement('br'), small);
+      entries.append(p);
+    }
+  }
+
   async function load() {
     const res = await fetch('/api/guestbook');
     const data = await res.json();
@@ -26,20 +50,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       entries.textContent = data.error || `HTTP ${res.status}`;
       return;
     }
-    entries.innerHTML = (data.entries || [])
-      .map((e) => `<p><strong>${e.name}</strong>: ${e.message}<br/><small>${e.created_at}</small></p>`)
-      .join('') || '<p>No entries yet.</p>';
+    renderEntries(data.entries || []);
   }
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const payload = Object.fromEntries(new FormData(form).entries());
-    await fetch('/api/guestbook', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    form.reset();
-    await load();
+    status.textContent = 'Sending…';
+    try {
+      const res = await fetch('/api/guestbook', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        status.textContent = `Error: ${data.error || res.status}`;
+        return;
+      }
+      status.textContent = 'Signed. Thank you!';
+      form.reset();
+      await load();
+    } catch (err) {
+      status.textContent = 'Network error';
+    }
   });
   load();
 </script>
