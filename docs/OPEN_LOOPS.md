@@ -3,7 +3,7 @@
 > งานค้างที่ยังไม่ปิด · ลบแถวเมื่อเสร็จ
 > Owner = `Claude` | `OpenCode` | `human`
 
-Last updated: 2026-09-25 14:25 +07:00
+Last updated: 2026-09-25 14:38 +07:00
 Updated by: Claude
 
 | ID | Task | Owner | Priority | Trigger / due | Notes |
@@ -11,6 +11,7 @@ Updated by: Claude
 | L6 | ใส่ label ให้ issue #1–#10 (สร้างไปแบบไม่มี label เพราะ label เช่น `course`, `lab-00` ยังไม่มีในโปรเจกต์) | human | P3 | ทางเลือก ไม่บล็อกงานถัดไป | ดู `docs/OPEN_LOOPS.md` ปิดแล้ว L3 — สร้าง label ก่อนแล้วค่อย label ทีหลังได้ |
 | L10 | ปิด D5 (guestbook v1 scope) อย่างเป็นทางการใน `docs/DECISIONS.md` ก่อน ship จริง — หน้า `/guestbook` + nav link + `db.ts` schema scaffold มีอยู่แล้วแต่ decision ยังไม่ปิด | human + facilitator | P2 | ก่อน ship/deploy จริง | พบระหว่างตรวจสัญญา cross-harness (OpenCode), ไม่ใช่ blocker ของ Lab 04/05 เอง |
 | L13 | Code-quality nits จาก re-review ของ PR #19 (merged แล้ว ไม่ใช่ blocker): (1) `EMAIL_RE` ใน `db.ts` ยอมรับอีเมลรูปแบบแปลก (trailing/consecutive dots) (2) `NAME_MAX`/`MESSAGE_MAX` เป็น magic number ซ้ำกับ `maxlength` ใน `guestbook.astro` คนละไฟล์คนละ ownership ไม่มี single source of truth (3) `json()` helper ซ้ำกันใน `contact.ts`/`guestbook.ts` สองที่ (4) `request.json()` parse-error catch ปนกันระหว่าง client 400 กับ server-side error จริง | OpenCode/backend | P3 | เมื่อมีเวลาว่าง ไม่บล็อก Lab ถัดไป | พบหลัง PR #19 merge แล้วจากรอบ code-review — ไม่กระทบความปลอดภัย/ฟังก์ชันปัจจุบัน |
+| L14 | a11y P2 (จาก `docs/QA.md` Lab 06 debate): (1) custom `:focus-visible` outline ตามธีมเอิร์ท แทนการพึ่ง browser default (2) ทบทวน pattern การ์ด Home ที่ห่อ `<h2>` ด้วย `<a>` ถ้า IA ขยายเกิน 4 การ์ด | Claude/frontend | P3 | ไม่บล็อก ทำเมื่อมีเวลา | P1 สองข้อ (skip-link, semantic list) แก้แล้วใน PR นี้ — ดู `docs/QA.md` |
 
 ## ปิดแล้ว (ย่อ — ย้ายหรือลบได้เมื่อรก)
 
