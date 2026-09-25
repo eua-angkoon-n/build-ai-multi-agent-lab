@@ -25,5 +25,8 @@ const profile = loadProfile();
         </a>
       </p>
     )}
+    {!profile.contact.email && !profile.contact.github && (
+      <p>ช่องทางติดต่อกำลังอัปเดต — โปรดกลับมาเช็คอีกครั้งภายหลัง</p>
+    )}
   </section>
 </BaseLayout>
